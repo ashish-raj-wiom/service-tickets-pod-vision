@@ -740,7 +740,7 @@
     </div>
 
     <div class="sev-group">
-      <div class="sev-head sev-struct"><span class="pip"></span>Structural<span class="cnt">7 · architecture and ownership</span></div>
+      <div class="sev-head sev-struct"><span class="pip"></span>Structural<span class="cnt">8 · architecture and information flow</span></div>
 
       <div class="anom">
         <div class="anom-id">A-04</div>
@@ -836,21 +836,24 @@
       </div>
     </div>
 
-    <div class="sev-group">
-      <div class="sev-head sev-watch"><span class="pip"></span>Watch<span class="cnt">3 · known, lower urgency</span></div>
-
       <div class="anom">
         <div class="anom-id">A-11</div>
         <div>
-          <h4>On re-contact, the agent is blind</h4>
+          <h4>The three parties cannot see each other</h4>
           <ul class="tight">
-            <li>A customer calling back can have a comment logged, but the agent sees no ticket status and no CSP progress</li>
-            <li>The agent cannot reach the partner, and the app shows no live update at that moment</li>
-            <li><b>Effect:</b> the strongest signal we get — a customer chasing — goes nowhere</li>
+            <li><b>Agent → ticket:</b> on a callback the agent can log a comment but sees no ticket status and no CSP progress, and cannot reach the partner</li>
+            <li><b>CSP → customer:</b> the CSP has no idea how many times this customer has already chased for the same issue</li>
+            <li><b>Agent → CSP:</b> what the agent learns on the call — availability, severity, clues about the fault — never reaches the person who has to fix it</li>
+            <li><b>Ticket → customer:</b> the app gives no live status either, so calling is the only way to find out</li>
+            <li><b>Effect:</b> the customer repeats the same script every call, and the CSP works with less context than we already hold</li>
           </ul>
-          <p class="ev">Kapture-side process — not modelled in SRS or TAS</p>
+          <p class="ev">Kapture-side process — not modelled in SRS or TAS · compounds A-10</p>
         </div>
       </div>
+    </div>
+
+    <div class="sev-group">
+      <div class="sev-head sev-watch"><span class="pip"></span>Watch<span class="cnt">2 · known, lower urgency</span></div>
 
       <div class="anom">
         <div class="anom-id">A-11</div>
@@ -897,12 +900,43 @@
         <div class="rm">
           <h4>During an active ticket</h4>
           <p>The CSP app can already show dynamic context on a card. The mechanism exists — the proactive trigger does not.</p>
-          <span class="link">addresses A-10</span>
+          <span class="link">addresses A-11</span>
         </div>
         <div class="rm">
           <h4>After resolution</h4>
           <p>Fix the SRS → Kapture round trip first; there is little point adding comms on a loop we cannot confirm closes.</p>
           <span class="link">depends on A-08</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="horizon">
+      <div class="horizon-head"><h3>Information flow</h3><span class="when">cross-party context</span></div>
+      <div class="rm-items">
+        <div class="rm">
+          <h4>Ticket status for the agent</h4>
+          <p>The agent on a callback is completely blind — no view of the ticket's state, no idea what the CSP is doing. Give them the status before they have to apologise for not knowing it.</p>
+          <span class="link">addresses A-11</span>
+        </div>
+        <div class="rm">
+          <h4>Repeat-contact signal to the CSP</h4>
+          <p>The CSP has no idea a customer has chased three times. That count is one of the strongest urgency signals we hold, and it currently stops at Kapture.</p>
+          <span class="link">addresses A-11</span>
+        </div>
+        <div class="rm">
+          <h4>Agent intelligence to the CSP</h4>
+          <p>What the agent learns on the call — when the customer is home, how severe it is, clues about the fault — would help the CSP fix it faster. Today none of it travels.</p>
+          <span class="link">addresses A-11, A-13</span>
+        </div>
+        <div class="rm">
+          <h4>Status the customer can self-serve</h4>
+          <p>The app gives the customer no live view of where their issue stands — so the only way to find out is to call, which is the very loop we are trying to break.</p>
+          <span class="link">addresses A-11</span>
+        </div>
+        <div class="rm">
+          <h4>Continuity for the customer</h4>
+          <p>Repeating the same script on every call is the most visible symptom of all the gaps above. Continuity is the outcome that proves the rest landed.</p>
+          <span class="link">the outcome measure</span>
         </div>
       </div>
     </div>
