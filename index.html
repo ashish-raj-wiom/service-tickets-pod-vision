@@ -5,31 +5,35 @@
 
 <style>
   :root {
-    --ground:      #F6F7F9;
+    --ground:      #FAFAFA;
     --surface:     #FFFFFF;
-    --surface-alt: #EDEFF3;
-    --ink:         #141A22;
-    --ink-soft:    #3C4654;
-    --slate:       #5F6B7A;
-    --rule:        #D6DAE1;
-    --rule-soft:   #E5E8ED;
+    --surface-alt: #F1F2F4;
+    --ink:         #16191D;
+    --ink-soft:    #40464F;
+    --slate:       #6B7280;
+    --slate-light: #9AA1AB;
+    --rule:        #E1E3E7;
+    --rule-soft:   #EDEEF1;
 
-    --accent:      #9C6410;
-    --accent-deep: #7A4E0B;
-    --accent-wash: #F6EEDF;
+    --accent:      #8A5A12;
+    --accent-deep: #6B4509;
+    --accent-wash: #FBF4E7;
 
-    --danger:      #B3261E;
-    --danger-deep: #8C1D17;
-    --danger-wash: #FBEAE8;
+    --crit:        #A32219;
+    --crit-wash:   #FCEEEC;
+    --struct:      #8A5A12;
+    --struct-wash: #FBF4E7;
+    --watch:       #4B5563;
+    --watch-wash:  #F1F2F4;
 
-    --future:      #2C5FB3;
-    --future-deep: #204A8C;
-    --future-wash: #EAF0FB;
+    --future:      #1F4E9C;
+    --future-deep: #16386F;
+    --future-wash: #EDF2FB;
 
-    --good:        #3A7D44;
-    --good-wash:   #EAF4EB;
+    --good:        #2F6B3A;
+    --good-wash:   #EDF5EE;
 
-    --shadow: 0 1px 2px rgba(20,26,34,.05), 0 8px 24px -12px rgba(20,26,34,.12);
+    --shadow: 0 1px 2px rgba(22,25,29,.04), 0 6px 20px -12px rgba(22,25,29,.10);
 
     --sans:  "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
     --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
@@ -38,59 +42,67 @@
 
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --ground:      #0F141A;
-      --surface:     #161C24;
-      --surface-alt: #1D242E;
-      --ink:         #E5E9EF;
-      --ink-soft:    #BCC5D1;
-      --slate:       #8E9AA9;
-      --rule:        #2A333F;
-      --rule-soft:   #212932;
+      --ground:      #0E1116;
+      --surface:     #151A20;
+      --surface-alt: #1C222A;
+      --ink:         #E8EBEF;
+      --ink-soft:    #BFC6D0;
+      --slate:       #8B95A1;
+      --slate-light: #6C757F;
+      --rule:        #262E38;
+      --rule-soft:   #1E252D;
 
-      --accent:      #DFA144;
-      --accent-deep: #F0BC6C;
-      --accent-wash: #2A2113;
+      --accent:      #D9A250;
+      --accent-deep: #EBBE7A;
+      --accent-wash: #241C0F;
 
-      --danger:      #E5766C;
-      --danger-deep: #F2A199;
-      --danger-wash: #2B1917;
+      --crit:        #E8837A;
+      --crit-wash:   #2A1614;
+      --struct:      #D9A250;
+      --struct-wash: #241C0F;
+      --watch:       #9AA4B0;
+      --watch-wash:  #1C222A;
 
-      --future:      #7AA5E8;
-      --future-deep: #A9C4F0;
-      --future-wash: #131E2E;
+      --future:      #7BA6EA;
+      --future-deep: #A6C3F2;
+      --future-wash: #111C2D;
 
-      --good:        #7BC088;
-      --good-wash:   #14231A;
+      --good:        #79BE86;
+      --good-wash:   #122117;
 
-      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.6);
+      --shadow: 0 1px 2px rgba(0,0,0,.36), 0 8px 24px -14px rgba(0,0,0,.6);
     }
   }
   :root[data-theme="dark"] {
-    --ground:      #0F141A;
-    --surface:     #161C24;
-    --surface-alt: #1D242E;
-    --ink:         #E5E9EF;
-    --ink-soft:    #BCC5D1;
-    --slate:       #8E9AA9;
-    --rule:        #2A333F;
-    --rule-soft:   #212932;
+    --ground:      #0E1116;
+    --surface:     #151A20;
+    --surface-alt: #1C222A;
+    --ink:         #E8EBEF;
+    --ink-soft:    #BFC6D0;
+    --slate:       #8B95A1;
+    --slate-light: #6C757F;
+    --rule:        #262E38;
+    --rule-soft:   #1E252D;
 
-    --accent:      #DFA144;
-    --accent-deep: #F0BC6C;
-    --accent-wash: #2A2113;
+    --accent:      #D9A250;
+    --accent-deep: #EBBE7A;
+    --accent-wash: #241C0F;
 
-    --danger:      #E5766C;
-    --danger-deep: #F2A199;
-    --danger-wash: #2B1917;
+    --crit:        #E8837A;
+    --crit-wash:   #2A1614;
+    --struct:      #D9A250;
+    --struct-wash: #241C0F;
+    --watch:       #9AA4B0;
+    --watch-wash:  #1C222A;
 
-    --future:      #7AA5E8;
-    --future-deep: #A9C4F0;
-    --future-wash: #131E2E;
+    --future:      #7BA6EA;
+    --future-deep: #A6C3F2;
+    --future-wash: #111C2D;
 
-    --good:        #7BC088;
-    --good-wash:   #14231A;
+    --good:        #79BE86;
+    --good-wash:   #122117;
 
-    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.6);
+    --shadow: 0 1px 2px rgba(0,0,0,.36), 0 8px 24px -14px rgba(0,0,0,.6);
   }
 
   *, *::before, *::after { box-sizing: border-box; }
@@ -100,418 +112,421 @@
     background: var(--ground);
     color: var(--ink);
     font-family: var(--serif);
-    font-size: 17.5px;
-    line-height: 1.66;
+    font-size: 17px;
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
   }
 
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px 100px; }
-  .col  { max-width: 68ch; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px 110px; }
 
-  header.mast {
-    padding: 72px 0 40px;
-    border-bottom: 1px solid var(--rule);
-    margin-bottom: 44px;
-  }
-  .eyebrow {
+  /* ─── masthead ─────────────────────────────────────────── */
+  header.mast { padding: 64px 0 0; }
+  .doc-label {
     font-family: var(--sans);
-    font-size: 11.5px;
+    font-size: 11px;
     font-weight: 600;
-    letter-spacing: .14em;
+    letter-spacing: .16em;
     text-transform: uppercase;
     color: var(--accent);
-    margin: 0 0 18px;
+    margin: 0 0 20px;
   }
   h1 {
     font-family: var(--sans);
-    font-size: clamp(2rem, 5vw, 3.1rem);
+    font-size: clamp(2rem, 4.4vw, 2.9rem);
     font-weight: 700;
-    letter-spacing: -.022em;
-    line-height: 1.08;
+    letter-spacing: -.025em;
+    line-height: 1.1;
     text-wrap: balance;
-    margin: 0 0 20px;
+    margin: 0 0 18px;
+    max-width: 20ch;
   }
   .standfirst {
-    font-size: 1.2rem;
-    line-height: 1.56;
+    font-size: 1.16rem;
+    line-height: 1.55;
     color: var(--ink-soft);
-    max-width: 62ch;
-    margin: 0 0 22px;
+    max-width: 60ch;
+    margin: 0 0 30px;
   }
-  .meta {
+  .byline {
     font-family: var(--sans);
-    font-size: 13px;
+    font-size: 12.5px;
     color: var(--slate);
     display: flex;
-    gap: 18px;
+    gap: 8px;
+    align-items: center;
     flex-wrap: wrap;
+    padding-bottom: 30px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .byline .dot { color: var(--slate-light); }
+
+  /* metrics bar */
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 8px;
+  }
+  .metric { padding: 26px 26px 26px 0; border-right: 1px solid var(--rule-soft); }
+  .metric:last-child { border-right: none; }
+  .metric .fig {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 1;
+    letter-spacing: -.03em;
+    color: var(--crit);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .metric .cap {
+    font-family: var(--sans);
+    font-size: .82rem;
+    line-height: 1.4;
+    color: var(--slate);
   }
 
-  /* section nav */
   nav.toc {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin: 28px 0 0;
+    gap: 26px;
+    padding: 20px 0 0;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 550;
   }
   nav.toc a {
-    font-family: var(--sans);
-    font-size: 12.5px;
-    font-weight: 600;
-    color: var(--ink-soft);
+    color: var(--slate);
     text-decoration: none;
-    background: var(--surface);
-    border: 1px solid var(--rule);
-    border-radius: 100px;
-    padding: 7px 14px;
+    border-bottom: 1.5px solid transparent;
+    padding-bottom: 2px;
   }
-  nav.toc a:hover { border-color: var(--accent); color: var(--accent-deep); }
+  nav.toc a:hover { color: var(--accent-deep); border-bottom-color: var(--accent); }
 
-  section { margin: 0 0 80px; scroll-margin-top: 24px; }
-  section.section-head {
+  /* ─── sections ─────────────────────────────────────────── */
+  section { margin: 78px 0 0; scroll-margin-top: 20px; }
+  .sec-head {
     display: flex;
     align-items: baseline;
-    gap: 14px;
-    margin-bottom: 8px;
+    gap: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--ink);
+    margin-bottom: 26px;
   }
-  .section-num {
+  .sec-num {
     font-family: var(--mono);
-    font-size: 14px;
-    color: var(--slate);
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 500;
   }
-
   h2 {
     font-family: var(--sans);
-    font-size: 1.65rem;
+    font-size: 1.5rem;
     font-weight: 650;
-    letter-spacing: -.014em;
+    letter-spacing: -.018em;
     line-height: 1.2;
-    text-wrap: balance;
-    margin: 0 0 8px;
+    margin: 0;
   }
-  .section-kicker {
+  .sec-sub {
     font-family: var(--sans);
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    margin: 0 0 10px;
+    font-size: .95rem;
+    color: var(--slate);
+    margin: -14px 0 32px;
+    max-width: 68ch;
   }
   h3 {
     font-family: var(--sans);
-    font-size: 1.12rem;
-    font-weight: 600;
-    letter-spacing: -.004em;
-    margin: 0 0 10px;
-    text-wrap: balance;
+    font-size: 1.06rem;
+    font-weight: 620;
+    letter-spacing: -.006em;
+    margin: 0 0 12px;
   }
-  h4 {
-    font-family: var(--sans);
-    font-size: .96rem;
-    font-weight: 650;
-    margin: 0 0 6px;
-  }
-  p { margin: 0 0 17px; }
+  h4 { font-family: var(--sans); font-size: .95rem; font-weight: 620; margin: 0 0 6px; }
+  p { margin: 0 0 16px; }
   p:last-child { margin-bottom: 0; }
   b, strong { font-weight: 600; }
-  .lede { color: var(--ink-soft); font-size: 1.06rem; max-width: 68ch; margin-bottom: 34px; }
-
   code {
     font-family: var(--mono);
-    font-size: .82em;
+    font-size: .8em;
     background: var(--surface-alt);
     border-radius: 3px;
-    padding: .1em .34em;
+    padding: .12em .38em;
   }
 
-  ul.plain, ol.plain { margin: 0 0 16px; padding-left: 22px; }
-  ul.plain li, ol.plain li { margin-bottom: 7px; }
+  ul.tight { font-family: var(--sans); font-size: .9rem; line-height: 1.55; margin: 0; padding-left: 17px; }
+  ul.tight li { margin-bottom: 6px; }
+  ul.tight li:last-child { margin-bottom: 0; }
+  ul.tight b { font-weight: 620; color: var(--ink); }
 
-  /* crisp bullets — sans, tight, no filler */
-  .tight { font-family: var(--sans); font-size: .91rem; line-height: 1.5; margin: 0; padding-left: 18px; }
-  .tight li { margin-bottom: 5px; }
-  .tight li:last-child { margin-bottom: 0; }
-  .tight b { font-weight: 650; color: var(--ink); }
-
-  /* at-a-glance strip */
-  .glance {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-    gap: 1px;
-    background: var(--rule);
-    border: 1px solid var(--rule);
-    border-radius: 10px;
-    overflow: hidden;
-    margin: 30px 0 0;
-  }
-  .glance-item { background: var(--surface); padding: 16px 18px; }
-  .glance-item .num {
-    font-family: var(--sans); font-weight: 700; font-size: 1.3rem; color: var(--danger);
-    display: block; margin-bottom: 2px;
-  }
-  .glance-item .lbl { font-family: var(--sans); font-size: .8rem; color: var(--slate); line-height: 1.35; }
-
-  /* pull quote / objective */
+  /* ─── objective ────────────────────────────────────────── */
   .objective {
-    background: var(--surface);
-    border: 1px solid var(--rule);
-    border-left: 4px solid var(--accent);
-    border-radius: 10px;
-    padding: 28px 30px;
-    font-size: 1.14rem;
-    line-height: 1.6;
-    box-shadow: var(--shadow);
-    margin-bottom: 36px;
+    font-family: var(--serif);
+    font-size: 1.22rem;
+    line-height: 1.55;
+    color: var(--ink);
+    border-left: 3px solid var(--accent);
+    padding: 4px 0 4px 26px;
+    max-width: 64ch;
+    margin-bottom: 40px;
   }
 
-  /* vision tree */
-  .tree { font-family: var(--sans); font-size: .96rem; }
-  .tree > .node { margin: 0 0 10px; }
-  .tree ul { list-style: none; margin: 8px 0 0; padding-left: 26px; border-left: 2px solid var(--rule); }
-  .tree li { position: relative; margin: 10px 0; padding-left: 4px; }
-  .node-box {
+  .tree { font-family: var(--sans); font-size: .92rem; margin-bottom: 20px; }
+  .tree ul { list-style: none; margin: 9px 0 0; padding-left: 30px; border-left: 1px solid var(--rule); }
+  .tree li { margin: 9px 0; }
+  .nb {
     display: inline-block;
-    padding: 10px 16px;
-    border-radius: 8px;
+    padding: 11px 17px;
+    border-radius: 7px;
     border: 1px solid var(--rule);
     background: var(--surface);
-    max-width: 62ch;
+    max-width: 60ch;
+    line-height: 1.45;
   }
-  .node-box.good { border-color: var(--good); background: var(--good-wash); }
-  .node-box.future { border-color: var(--future); background: var(--future-wash); }
-  .node-box.escalate { border-color: var(--danger); background: var(--danger-wash); }
-  .node-tag {
-    font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
-    display: block; margin-bottom: 4px;
+  .nb.good   { border-color: var(--good);   background: var(--good-wash); }
+  .nb.future { border-color: var(--future); background: var(--future-wash); }
+  .nb.esc    { border-color: var(--crit);   background: var(--crit-wash); }
+  .nb .tag {
+    font-size: 9.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    display: block; margin-bottom: 5px; color: var(--slate);
   }
-  .node-box.good .node-tag { color: var(--good); }
-  .node-box.future .node-tag { color: var(--future-deep); }
-  .node-box.escalate .node-tag { color: var(--danger); }
+  .nb.good .tag   { color: var(--good); }
+  .nb.future .tag { color: var(--future-deep); }
+  .nb.esc .tag    { color: var(--crit); }
 
-  /* diagram */
+  .callout {
+    font-family: var(--sans);
+    font-size: .93rem;
+    color: var(--ink-soft);
+    background: var(--surface-alt);
+    border-radius: 7px;
+    padding: 14px 18px;
+    max-width: 68ch;
+  }
+
+  /* ─── diagram ──────────────────────────────────────────── */
   .diagram {
     background: var(--surface);
     border: 1px solid var(--rule);
     border-radius: 10px;
-    padding: 26px 22px 20px;
+    padding: 24px 20px 18px;
     overflow-x: auto;
     box-shadow: var(--shadow);
-    margin-bottom: 22px;
+    margin-bottom: 14px;
   }
   .diagram svg { display: block; min-width: 900px; width: 100%; height: auto; }
   svg text { font-family: var(--sans); }
   .legend {
-    display: flex; flex-wrap: wrap; gap: 20px;
-    font-family: var(--sans); font-size: 12px; color: var(--slate);
-    margin-bottom: 40px;
+    display: flex; flex-wrap: wrap; gap: 22px;
+    font-family: var(--sans); font-size: 11.5px; color: var(--slate);
+    margin-bottom: 46px;
   }
   .legend span { display: inline-flex; align-items: center; gap: 7px; }
-  .swatch { width: 22px; height: 2px; display: inline-block; }
-  .swatch.solid { background: var(--slate); }
-  .swatch.dashed { background: repeating-linear-gradient(90deg, var(--future) 0 6px, transparent 6px 10px); }
-  .swatch.gap { background: repeating-linear-gradient(90deg, var(--danger) 0 4px, transparent 4px 7px); }
+  .sw { width: 20px; height: 2px; display: inline-block; }
+  .sw.solid { background: var(--slate); }
+  .sw.dash  { background: repeating-linear-gradient(90deg, var(--slate) 0 5px, transparent 5px 9px); }
+  .sw.gap   { background: repeating-linear-gradient(90deg, var(--crit) 0 4px, transparent 4px 7px); }
 
-  /* service table */
-  table.services {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: .94rem;
-    margin-bottom: 8px;
-  }
-  table.services th, table.services td {
+  /* ─── tables ───────────────────────────────────────────── */
+  .tbl-wrap { overflow-x: auto; margin-bottom: 46px; }
+  table.grid { width: 100%; border-collapse: collapse; font-size: .91rem; font-family: var(--sans); }
+  table.grid th {
     text-align: left;
-    padding: 12px 14px;
-    border-bottom: 1px solid var(--rule-soft);
-    vertical-align: top;
-  }
-  table.services th {
-    font-family: var(--sans);
-    font-size: 11px;
+    font-size: 10.5px;
     font-weight: 700;
-    letter-spacing: .08em;
+    letter-spacing: .09em;
     text-transform: uppercase;
     color: var(--slate);
+    padding: 0 16px 10px 0;
+    border-bottom: 1.5px solid var(--rule);
+  }
+  table.grid td {
+    padding: 13px 16px 13px 0;
+    border-bottom: 1px solid var(--rule-soft);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  table.grid td:first-child { font-weight: 620; color: var(--ink); white-space: nowrap; }
+  table.grid td.muted { color: var(--slate); }
+
+  /* ─── phases ───────────────────────────────────────────── */
+  .phases { display: grid; gap: 0; }
+  .phase { display: grid; grid-template-columns: 132px 1fr; gap: 28px; padding: 24px 0; border-top: 1px solid var(--rule-soft); }
+  .phase:first-child { border-top: 1px solid var(--rule); }
+  .phase-label { font-family: var(--sans); }
+  .phase-label .n { font-size: 10.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 4px; }
+  .phase-label .t { font-size: .98rem; font-weight: 620; line-height: 1.3; }
+
+  /* ─── anomaly register ─────────────────────────────────── */
+  .sev-group { margin-bottom: 40px; }
+  .sev-head {
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--sans); font-size: 11px; font-weight: 700;
+    letter-spacing: .11em; text-transform: uppercase;
+    padding-bottom: 9px; margin-bottom: 0;
     border-bottom: 1px solid var(--rule);
   }
-  table.services td.owns { color: var(--ink); }
-  table.services td.not { color: var(--slate); font-size: .9rem; }
-  .wrap-table { overflow-x: auto; margin-bottom: 40px; }
+  .sev-head .pip { width: 9px; height: 9px; border-radius: 2px; display: inline-block; }
+  .sev-head .cnt { margin-left: auto; font-weight: 500; letter-spacing: .04em; color: var(--slate-light); text-transform: none; font-size: 11.5px; }
+  .sev-crit .pip { background: var(--crit); }   .sev-crit   { color: var(--crit); }
+  .sev-struct .pip { background: var(--struct); } .sev-struct { color: var(--struct); }
+  .sev-watch .pip { background: var(--watch); }  .sev-watch  { color: var(--watch); }
 
-  /* phase cards */
-  .phase {
-    border-top: 1px solid var(--rule);
-    padding: 30px 0;
-  }
-  .phase:first-of-type { border-top: 1px solid var(--rule); }
-  .phase-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 14px; }
-  .phase-n {
-    font-family: var(--mono); font-size: 12px; color: var(--accent);
-    background: var(--accent-wash); border-radius: 6px; padding: 3px 9px;
-  }
-  .phase h3 { margin: 0; font-size: 1.24rem; }
-
-  /* redundancy cards */
-  .redundancy {
-    background: var(--surface);
-    border: 1px solid var(--rule);
-    border-left: 4px solid var(--danger);
-    border-radius: 9px;
-    padding: 22px 26px;
-    margin-bottom: 18px;
-  }
-  .redundancy h4 { color: var(--danger-deep); font-size: 1.02rem; margin-bottom: 8px; }
-  .redundancy p { font-size: .97rem; }
-  .redundancy .evidence {
-    font-family: var(--mono);
-    font-size: .78rem;
-    color: var(--slate);
-    margin-top: 10px;
+  .anom { display: grid; grid-template-columns: 62px 1fr; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--rule-soft); }
+  .anom-id { font-family: var(--mono); font-size: 12px; color: var(--slate-light); padding-top: 2px; }
+  .anom h4 { font-size: 1.01rem; margin-bottom: 9px; letter-spacing: -.004em; }
+  .anom .ev {
+    font-family: var(--mono); font-size: .73rem; color: var(--slate-light);
+    margin-top: 10px; line-height: 1.5;
   }
 
-  /* roadmap cards */
-  .roadmap-group { margin-bottom: 40px; }
-  .roadmap-group > h3 {
-    font-size: 1.2rem;
-    color: var(--future-deep);
-    display: flex; align-items: center; gap: 10px;
+  /* ─── roadmap ──────────────────────────────────────────── */
+  .horizon { margin-bottom: 44px; }
+  .horizon-head { display: flex; align-items: baseline; gap: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--rule); margin-bottom: 20px; }
+  .horizon-head h3 { margin: 0; color: var(--future-deep); }
+  .horizon-head .when {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .06em;
+    color: var(--future); background: var(--future-wash);
+    padding: 3px 9px; border-radius: 4px;
   }
-  .roadmap-group > h3::before {
-    content: ""; width: 8px; height: 8px; border-radius: 50%;
-    background: var(--future); display: inline-block; flex: none;
-  }
-  .roadmap-items { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin-top: 14px; }
-  .roadmap-item {
-    background: var(--future-wash);
-    border: 1px solid var(--future);
-    border-radius: 9px;
-    padding: 18px 20px;
-  }
-  .roadmap-item h4 { color: var(--future-deep); margin-bottom: 7px; }
-  .roadmap-item p { font-size: .93rem; color: var(--ink-soft); margin: 0; }
-
-  .disclaimer {
-    font-family: var(--sans);
-    font-size: 12.5px;
-    color: var(--slate);
-    background: var(--surface-alt);
-    border-radius: 8px;
-    padding: 12px 16px;
-    margin: 0 0 28px;
-  }
+  .rm-items { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+  .rm h4 { color: var(--ink); margin-bottom: 6px; }
+  .rm p { font-family: var(--sans); font-size: .89rem; line-height: 1.5; color: var(--slate); margin: 0; }
+  .rm .link { font-family: var(--mono); font-size: .72rem; color: var(--slate-light); display: block; margin-top: 7px; }
 
   footer.foot {
     border-top: 1px solid var(--rule);
-    padding-top: 26px;
+    margin-top: 70px;
+    padding-top: 24px;
     font-family: var(--sans);
-    font-size: 13px;
+    font-size: 12.5px;
     color: var(--slate);
-    line-height: 1.72;
-    max-width: 72ch;
+    line-height: 1.7;
+    max-width: 74ch;
   }
 
-  @media (max-width: 620px) {
-    body { font-size: 16.5px; }
-    header.mast { padding-top: 44px; }
+  @media (max-width: 700px) {
+    body { font-size: 16px; }
+    .wrap { padding: 0 20px 70px; }
+    .phase { grid-template-columns: 1fr; gap: 10px; }
+    .anom { grid-template-columns: 1fr; gap: 6px; }
+    .metric { padding: 20px 16px 20px 0; }
   }
 </style>
 
 <div class="wrap">
 
   <header class="mast">
-    <p class="eyebrow">Service Tickets POD — working understanding</p>
-    <h1>SRS &amp; Service Tickets: where we are, and where this should go</h1>
+    <p class="doc-label">Service Tickets POD · Working document</p>
+    <h1>SRS &amp; Service Tickets: current state and direction</h1>
     <p class="standfirst">
-      How a service ticket actually moves today — Kapture to SRS to TAS Restore — and where the
-      system should go. Current-state claims are code-verified; the roadmap is direction, not spec.
+      How a service ticket actually moves today — Kapture to SRS to TAS Restore — the anomalies
+      that live in that path, and where I think we take it next.
     </p>
-    <div class="meta">
-      <span>Ashish Raj — PM, Service Tickets POD</span>
-      <span>Updated 26 Aug 2026</span>
+    <div class="byline">
+      <span>Ashish Raj · PM, Service Tickets POD</span>
+      <span class="dot">·</span>
+      <span>Updated 27 Aug 2026</span>
+      <span class="dot">·</span>
+      <span>Current-state claims verified against code</span>
     </div>
+
+    <div class="metrics">
+      <div class="metric">
+        <span class="fig">0</span>
+        <span class="cap">proactive paths — every route into a ticket starts with the customer</span>
+      </div>
+      <div class="metric">
+        <span class="fig">3</span>
+        <span class="cap">ways a ticket is created — SRS cannot tell them apart</span>
+      </div>
+      <div class="metric">
+        <span class="fig">3</span>
+        <span class="cap">separate IDs per ticket, no single source of truth</span>
+      </div>
+      <div class="metric">
+        <span class="fig">13</span>
+        <span class="cap">anomalies logged, 3 of them customer-facing today</span>
+      </div>
+    </div>
+
     <nav class="toc">
-      <a href="#objective">1 · Objective</a>
-      <a href="#current-system">2 · Current System</a>
-      <a href="#redundancies">3 · Redundancies</a>
-      <a href="#roadmap">4 · Roadmap</a>
+      <a href="#objective">01 · Objective</a>
+      <a href="#current">02 · Current System</a>
+      <a href="#anomalies">03 · Anomaly Register</a>
+      <a href="#roadmap">04 · Roadmap</a>
     </nav>
-    <div class="glance">
-      <div class="glance-item"><span class="num">0</span><span class="lbl">proactive paths exist today — every path is escalation-only</span></div>
-      <div class="glance-item"><span class="num">3</span><span class="lbl">separate IDs per ticket, no single source of truth</span></div>
-      <div class="glance-item"><span class="num">3</span><span class="lbl">ways a ticket is created — SRS can't tell them apart</span></div>
-      <div class="glance-item"><span class="num">?</span><span class="lbl">resolution → Kapture: no confirmed delivery found</span></div>
-    </div>
   </header>
 
-  <!-- ══════════════════════════════════════════════════════════ 1 · OBJECTIVE ══ -->
+  <!-- ═══════════════════════════════ 01 ═══ -->
   <section id="objective">
-    <div class="section-head"><span class="section-num">01</span><h2>Defining the overall objective</h2></div>
-    <p class="lede">The target, before the current-state detail.</p>
+    <div class="sec-head"><span class="sec-num">01</span><h2>Objective</h2></div>
 
     <div class="objective">
-      If the customer faces an issue, and Wiom got to know about it (via data/telemetry), both
-      parties — customer and CSP — should be proactively communicated with, so that it does not
-      get lost and the customer has to escalate. If the escalation does happen, Wiom should get
-      the ticket resolved as fast as possible.
+      If the customer faces an issue and Wiom knows about it — via data or telemetry — both
+      parties should be told proactively, so it never gets lost and the customer never has to
+      escalate. If they do escalate, we resolve it as fast as possible.
     </div>
 
     <h3>The ideal condition</h3>
     <div class="tree">
-      <div class="node"><span class="node-box good"><span class="node-tag">Ideal</span>Customer does not face any issue</span></div>
+      <span class="nb good"><span class="tag">Ideal</span>Customer does not face any issue</span>
       <ul>
         <li>
-          <span class="node-box future"><span class="node-tag">Path A</span>Wiom finds out first — data / telemetry / own intelligence</span>
+          <span class="nb future"><span class="tag">Path A</span>Wiom finds out first — data, telemetry, own intelligence</span>
           <ul>
-            <li><span class="node-box future"><span class="node-tag">Vision</span>Notify <b>both</b> parties proactively, with an ETA — resolved before the customer needs to call</span></li>
+            <li><span class="nb future"><span class="tag">Target</span>Notify <b>both</b> parties with an ETA — resolved before the customer needs to call</span></li>
           </ul>
         </li>
         <li>
-          <span class="node-box escalate"><span class="node-tag">Path B — A missed</span>Customer escalates — call or app</span>
+          <span class="nb esc"><span class="tag">Path B · A was missed</span>Customer escalates — call, chat, or agent</span>
           <ul>
-            <li><span class="node-box escalate"><span class="node-tag">Fallback</span>Resolve as fast as possible</span></li>
+            <li><span class="nb esc"><span class="tag">Fallback</span>Resolve as fast as possible</span></li>
           </ul>
         </li>
       </ul>
     </div>
-    <p style="margin-top:18px; color:var(--ink-soft); font-size:.94rem;">
-      Section 2 is 100% path B today. Path A doesn't exist — that gap drives Section 4.
+
+    <p class="callout">
+      Everything in Section 02 is <b>Path B</b>. Path A does not exist in code today — that gap
+      is what Section 04 is organised around.
     </p>
   </section>
 
-  <!-- ══════════════════════════════════════════════════════════ 2 · CURRENT SYSTEM ══ -->
-  <section id="current-system">
-    <div class="section-head"><span class="section-num">02</span><h2>Current system, and how it works</h2></div>
-    <p class="lede">Escalation-only — nothing here is proactive. Three ways in
-    (<b>1</b> IVR call · <b>2</b> customer chat · <b>3</b> Kapture agent), all converging on
-    Ticket Service Java.</p>
+  <!-- ═══════════════════════════════ 02 ═══ -->
+  <section id="current">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Current system</h2></div>
+    <p class="sec-sub">
+      Escalation-only. Three ways in — IVR call, customer chat, Kapture agent — all converging on
+      Ticket Service Java before anything reaches the CSP world.
+    </p>
 
     <div class="diagram">
       <svg viewBox="0 0 1040 396" role="img" aria-labelledby="dgt dgd">
         <title id="dgt">Service ticket flow — all parties, current state</title>
-        <desc id="dgd">The reactive path that exists today: customer calls, IVR/agent logs a
-        Kapture ticket, Ticket Service Java relays it to SRS, SRS creates a task for TAS Restore,
-        TAS renders a card in the CSP app via the gateway, and the customer app separately pulls
-        ticket status directly from Ticket Service Java. Quality OS receives SRS's resolution
-        signal. A dashed red annotation marks a known gap: SRS's COMPLAINT_RESOLVED event has no
-        confirmed consumer that updates Kapture.</desc>
+        <desc id="dgd">Three creation paths converge on Ticket Service Java: an IVR call routed
+        through a call-centre agent into Kapture; the customer app's chat flow; and a Kapture
+        agent creating a ticket directly. Ticket Service Java posts to SRS, SRS creates a task for
+        TAS Restore, and TAS renders a card in the CSP app via the gateway. The customer app also
+        pulls ticket status directly from Ticket Service Java. Quality OS receives SRS's
+        resolution signal. A dashed red annotation marks a known gap: SRS's COMPLAINT_RESOLVED
+        event has no confirmed consumer that updates Kapture.</desc>
 
         <defs>
           <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
             <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--slate)"/>
           </marker>
-          <marker id="arf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--future)"/>
-          </marker>
           <marker id="ard" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--danger)"/>
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--crit)"/>
           </marker>
         </defs>
 
-        <!-- Row 1: front door -->
+        <!-- Row 1 -->
         <rect x="20" y="24" width="130" height="46" rx="6" fill="var(--surface-alt)" stroke="var(--rule)"/>
         <text x="85" y="52" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--ink)">Customer</text>
 
         <circle cx="178" cy="34" r="9" fill="var(--accent)"/>
-        <text x="178" y="38" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">1</text>
+        <text x="178" y="37.5" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">1</text>
         <path d="M150 55 L206 55" stroke="var(--slate)" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
         <text x="178" y="70" text-anchor="middle" font-size="9.5" fill="var(--slate)">calls</text>
 
@@ -522,18 +537,24 @@
         <path d="M360 47 L416 47" stroke="var(--slate)" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
 
         <rect x="420" y="24" width="130" height="46" rx="6" fill="var(--surface-alt)" stroke="var(--rule)"/>
-        <text x="485" y="45" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--ink)">Kapture</text>
-        <circle cx="437" cy="62" r="8" fill="var(--accent)"/>
-        <text x="437" y="65.5" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">3</text>
-        <text x="500" y="65" text-anchor="middle" font-size="9" fill="var(--slate)">agent can create direct</text>
+        <text x="485" y="44" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--ink)">Kapture</text>
+        <circle cx="437" cy="61" r="8" fill="var(--accent)"/>
+        <text x="437" y="64.5" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">3</text>
+        <text x="502" y="64" text-anchor="middle" font-size="9" fill="var(--slate)">agent creates direct</text>
 
         <path d="M485 70 L485 108" stroke="var(--slate)" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
         <text x="500" y="94" font-size="10" fill="var(--slate)">webhook</text>
 
-        <!-- Row 2: backend chain -->
+        <!-- gap annotation -->
+        <rect x="600" y="24" width="220" height="46" rx="6" fill="var(--crit-wash)" stroke="var(--crit)" stroke-width="1.2" stroke-dasharray="3 3"/>
+        <text x="710" y="42" text-anchor="middle" font-size="10" font-weight="700" fill="var(--crit)">COMPLAINT_RESOLVED</text>
+        <text x="710" y="57" text-anchor="middle" font-size="9" fill="var(--crit)">no confirmed consumer — A-08</text>
+        <path d="M600 47 L554 47" stroke="var(--crit)" stroke-width="1.3" stroke-dasharray="2 3" fill="none" marker-end="url(#ard)"/>
+
+        <!-- Row 2 -->
         <rect x="330" y="112" width="230" height="52" rx="7" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.6"/>
         <text x="445" y="134" text-anchor="middle" font-size="13" font-weight="700" fill="var(--accent)">Ticket Service Java</text>
-        <text x="445" y="152" text-anchor="middle" font-size="10.5" fill="var(--slate)">Kapture ↔ SRS shim, no idempotency</text>
+        <text x="445" y="152" text-anchor="middle" font-size="10.5" fill="var(--slate)">every path funnels through here</text>
 
         <path d="M560 138 L616 138" stroke="var(--slate)" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
         <text x="588" y="129" text-anchor="middle" font-size="9.5" fill="var(--slate)">POST /complaints</text>
@@ -549,17 +570,16 @@
         <text x="935" y="134" text-anchor="middle" font-size="13" font-weight="700" fill="var(--accent)">TAS Restore</text>
         <text x="935" y="152" text-anchor="middle" font-size="10.5" fill="var(--slate)">gets it done</text>
 
-        <!-- resolution events flow back TAS -> SRS -->
         <path d="M870 164 C 830 190, 770 190, 730 166" stroke="var(--slate)" stroke-width="1.2" fill="none" marker-end="url(#ar)"/>
         <text x="800" y="205" text-anchor="middle" font-size="9.5" fill="var(--slate)">resolution / verification events</text>
 
-        <!-- SRS -> Kapture gap: compact annotation, no long crossing path -->
-        <rect x="600" y="24" width="220" height="46" rx="6" fill="var(--danger-wash)" stroke="var(--danger)" stroke-width="1.2" stroke-dasharray="3 3"/>
-        <text x="710" y="42" text-anchor="middle" font-size="10" font-weight="700" fill="var(--danger)">COMPLAINT_RESOLVED</text>
-        <text x="710" y="57" text-anchor="middle" font-size="9" fill="var(--danger)">no confirmed consumer in Kapture — G-1</text>
-        <path d="M600 47 L554 47" stroke="var(--danger)" stroke-width="1.3" stroke-dasharray="2 3" fill="none" marker-end="url(#ard)"/>
+        <!-- Quality OS -->
+        <path d="M705 164 L705 210 L680 210" stroke="var(--accent)" stroke-width="1.3" fill="none" marker-end="url(#ar)"/>
+        <rect x="500" y="214" width="180" height="48" rx="6" fill="var(--surface-alt)" stroke="var(--rule)"/>
+        <text x="590" y="238" text-anchor="middle" font-size="12" font-weight="600" fill="var(--ink)">Quality OS</text>
+        <text x="590" y="253" text-anchor="middle" font-size="9.5" fill="var(--slate)">score · bonus · routing</text>
 
-        <!-- Row 3: customer app + csp app -->
+        <!-- Customer app -->
         <rect x="20" y="270" width="190" height="56" rx="6" fill="var(--surface-alt)" stroke="var(--rule)"/>
         <text x="115" y="292" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--ink)">Customer App — chat</text>
         <text x="115" y="308" text-anchor="middle" font-size="9" fill="var(--slate)">classifier → self-diagnosis → ticket</text>
@@ -570,294 +590,391 @@
         <text x="278" y="281" text-anchor="middle" font-size="9" fill="var(--slate)">creates ticket</text>
 
         <path d="M115 270 L115 244 L460 244 L460 168" stroke="var(--slate)" stroke-width="1.1" stroke-dasharray="4 3" fill="none" marker-end="url(#ar)"/>
-        <text x="300" y="238" text-anchor="middle" font-size="9.5" fill="var(--slate)">pulls status directly (no push)</text>
+        <text x="300" y="238" text-anchor="middle" font-size="9.5" fill="var(--slate)">pulls status (no push)</text>
 
+        <!-- CSP -->
         <rect x="850" y="270" width="170" height="50" rx="6" fill="var(--surface-alt)" stroke="var(--rule)"/>
         <text x="935" y="292" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--ink)">CSP App</text>
         <text x="935" y="307" text-anchor="middle" font-size="9.5" fill="var(--slate)">via gateway</text>
-
         <path d="M935 164 L935 264" stroke="var(--slate)" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
 
-        <rect x="850" y="330" width="170" height="46" rx="6" fill="var(--surface-alt)" stroke="var(--rule)"/>
-        <text x="935" y="358" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--ink)">CSP</text>
-
+        <rect x="850" y="330" width="170" height="44" rx="6" fill="var(--surface-alt)" stroke="var(--rule)"/>
+        <text x="935" y="357" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--ink)">CSP</text>
         <path d="M935 320 L935 326" stroke="var(--slate)" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
-
-        <!-- Quality OS downstream -->
-        <path d="M705 164 L705 210 L680 210" stroke="var(--accent)" stroke-width="1.3" fill="none" marker-end="url(#ar)"/>
-        <rect x="500" y="214" width="180" height="48" rx="6" fill="var(--surface-alt)" stroke="var(--rule)"/>
-        <text x="590" y="242" text-anchor="middle" font-size="12" font-weight="600" fill="var(--ink)">Quality OS →</text>
-        <text x="590" y="256" text-anchor="middle" font-size="9.5" fill="var(--slate)">score, bonus, routing</text>
       </svg>
     </div>
     <div class="legend">
-      <span><span class="swatch solid"></span> exists today, verified in code</span>
-      <span><span class="swatch gap"></span> emitted event, receiving side unverified/missing</span>
+      <span><span class="sw solid"></span> verified in code</span>
+      <span><span class="sw dash"></span> pull, not push</span>
+      <span><span class="sw gap"></span> emitted, receiver unverified</span>
     </div>
 
     <h3>Who owns what</h3>
-    <div class="wrap-table">
-      <table class="services">
-        <tr><th>Service</th><th>Owns</th><th>Does not own / not responsible for</th></tr>
+    <div class="tbl-wrap">
+      <table class="grid">
+        <tr><th>Service</th><th>Owns</th><th>Does not own</th></tr>
         <tr>
-          <td><b>Kapture</b></td>
-          <td class="owns">Ticket type, queue, priority, disposition</td>
-          <td class="not">Anything past Ticket Service Java</td>
+          <td>Kapture</td>
+          <td>Ticket type, queue, priority, disposition</td>
+          <td class="muted">Anything past Ticket Service Java</td>
         </tr>
         <tr>
-          <td><b>Ticket Service Java</b></td>
-          <td class="owns">Kapture→SRS relay, direct customer-app serving, its own TAT-breach timer</td>
-          <td class="not">Whether it already notified SRS — no idempotency</td>
+          <td>Ticket Service Java</td>
+          <td>Relay to SRS, direct customer-app serving, its own TAT-breach timer</td>
+          <td class="muted">Whether it already notified SRS — no idempotency on create</td>
         </tr>
         <tr>
-          <td><b>SRS</b></td>
-          <td class="owns">Classification, TAT/SLA, escalation, verification, closure, Quality OS signal</td>
-          <td class="not">Priority, queue, post-intake title, confirmed delivery back to Kapture</td>
+          <td>SRS</td>
+          <td>Classification, TAT/SLA, escalation, verification, closure, Quality OS signal</td>
+          <td class="muted">Priority and queue — neither word appears anywhere in its codebase. It does not even store the ticket title</td>
         </tr>
         <tr>
-          <td><b>TAS Restore</b></td>
-          <td class="owns">CSP card, allowed actions, nudge timers, timeline</td>
-          <td class="not">What the complaint means — renders actions that call dead endpoints</td>
+          <td>TAS Restore</td>
+          <td>CSP card, allowed actions, nudge timers, timeline</td>
+          <td class="muted">What the complaint means — renders whatever SRS hands it</td>
         </tr>
         <tr>
-          <td><b>CSP App / Customer App</b></td>
-          <td class="owns">Rendering only — CSP app resolves subtype copy client-side</td>
-          <td class="not">Any data of their own</td>
+          <td>CSP / Customer App</td>
+          <td>Rendering only — CSP app resolves subtype copy client-side</td>
+          <td class="muted">Any data of their own</td>
         </tr>
       </table>
     </div>
 
-    <div class="phase">
-      <div class="phase-head"><span class="phase-n">Phase 1</span><h3>Ticket Creation — 3 ways in</h3></div>
-      <ul class="tight">
-        <li><b>1 · IVR call</b> — half ticket → agent picks a fixed Ticket Type + comment → full ticket. Ticket Type sets the queue; <b>SRS only ever gets the Partner queue</b></li>
-        <li><b>2 · Customer chat</b> — classifier tags it <code>internetIssue</code> → self-diagnosis (plan check → open/resolved-ticket check → router ping) → only if still broken, a ticket is created</li>
-        <li><b>3 · Kapture direct</b> — agent creates it outright</li>
-        <li>All three converge on Ticket Service Java: minimal payload, <b>no idempotency key</b></li>
-        <li>SRS then classifies independently, off its own mapping table — unrecognised text is rejected or silently redirected</li>
-      </ul>
-    </div>
+    <h3>The four phases</h3>
+    <div class="phases">
+      <div class="phase">
+        <div class="phase-label"><span class="n">Phase 1</span><span class="t">Ticket Creation</span></div>
+        <ul class="tight">
+          <li><b>1 · IVR call</b> — half ticket → agent picks a fixed Ticket Type + comment → full ticket. Ticket Type sets the queue, and <b>SRS only ever receives the Partner queue</b></li>
+          <li><b>2 · Customer chat</b> — classifier tags it <code>internetIssue</code> → self-diagnosis (plan → existing ticket → router ping) → ticket only if still broken</li>
+          <li><b>3 · Kapture direct</b> — agent creates it outright</li>
+          <li>All three converge on Ticket Service Java, which posts a minimal payload to SRS</li>
+          <li>SRS classifies independently off its own mapping table — unrecognised text is rejected or silently redirected</li>
+        </ul>
+      </div>
 
-    <div class="phase">
-      <div class="phase-head"><span class="phase-n">Phase 2</span><h3>Ticket Reaching CSP</h3></div>
-      <ul class="tight">
-        <li>SRS stamps a deadline — per-subtype, working-hours or calendar</li>
-        <li>TAS Restore creates the CSP's card; manages attention via 4 timers + a version counter</li>
-        <li>Card reaches the CSP app via a gateway that passes the subtype through untouched</li>
-        <li>On-screen copy is resolved <b>client-side</b>, from the app's own label file — not sent by any backend</li>
-        <li>After 12–24h of inactivity, <b>PFT calls the CSP manually</b> — an outbound human process, separate from SRS's own escalation ladder</li>
-      </ul>
-    </div>
+      <div class="phase">
+        <div class="phase-label"><span class="n">Phase 2</span><span class="t">Reaching the CSP</span></div>
+        <ul class="tight">
+          <li>SRS stamps a deadline — per-subtype, working-hours or calendar</li>
+          <li>TAS Restore creates the card and manages attention via timers plus a seen/unseen version counter</li>
+          <li>Card reaches the CSP app through a gateway that passes the subtype through untouched</li>
+          <li>On-screen copy is resolved <b>client-side</b> from the app's own label file — not sent by any backend</li>
+          <li>After 12–24h of inactivity, <b>PFT calls the CSP manually</b> — an outbound human process, separate from SRS's escalation ladder</li>
+        </ul>
+      </div>
 
-    <div class="phase">
-      <div class="phase-head"><span class="phase-n">Phase 3</span><h3>Ticket Resolution</h3></div>
-      <ul class="tight">
-        <li>3 resolution paths: verification-gated (default), direct-resolve (3 subtypes), direct-unresolved (reason required)</li>
-        <li>Automated connectivity check is <b>advisory only</b> — closes either way regardless of result</li>
-        <li>Device swap: business checks in SRS, device checks in custody service; a completed swap <i>is</i> the closure</li>
-      </ul>
-    </div>
+      <div class="phase">
+        <div class="phase-label"><span class="n">Phase 3</span><span class="t">Resolution</span></div>
+        <ul class="tight">
+          <li>Three <b>CSP-initiated</b> routes: verification-gated (which itself splits into a system and a customer trigger), direct-resolve — hard-gated to exactly three subtypes — and direct-unresolved, which requires a reason code</li>
+          <li>The automated connectivity check is <b>advisory only</b> — the ticket closes either way, with the verdict riding along as metadata</li>
+          <li>SRS can also close a complaint with <b>no CSP action at all</b> — via a committed device swap, or a customer-verification timeout</li>
+          <li>Device swap: business checks in SRS, device checks in the custody service; a committed swap <i>is</i> the closure — no verification runs after it</li>
+        </ul>
+      </div>
 
-    <div class="phase">
-      <div class="phase-head"><span class="phase-n">Phase 4</span><h3>Consequences</h3></div>
-      <ul class="tight">
-        <li>SRS signals Quality OS → CSP score, bonus, routing exposure</li>
-        <li>SRS is meant to tell Kapture too — <b>no confirmed receiver found</b> for that event</li>
-        <li>Reopen reuses the lineage — from Kapture (verified) or customer app (unverified)</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════════════════════ 3 · REDUNDANCIES ══ -->
-  <section id="redundancies">
-    <div class="section-head"><span class="section-num">03</span><h2>Redundancies in the current system</h2></div>
-    <p class="lede">Same job done twice, no owner on a seam, or an event with no verified receiver.</p>
-
-    <div class="redundancy">
-      <h4>Multiple systems compute TAT, separately</h4>
-      <ul class="tight">
-        <li>SRS: per-subtype deadline, working/calendar clock, its own breach guard</li>
-        <li>Ticket Service Java: a <b>second, independent</b> TAT-breach system (types 3/4)</li>
-        <li>No evidence the two reconcile</li>
-      </ul>
-      <p class="evidence">ComplaintServiceImpl.java · WithinTatGuard.java · TicketType3Or4TatBreachHandler.java</p>
-    </div>
-
-    <div class="redundancy">
-      <h4>No single source of truth for "the ticket"</h4>
-      <ul class="tight">
-        <li>One call → 3 IDs: Kapture ticket, SRS complaint, TAS candidate</li>
-        <li>Ticket → Complaint is 1:many by design (reopens)</li>
-        <li>"Status of this ticket" = three different answers, from three systems</li>
-      </ul>
-      <p class="evidence">01-system-map.md — ID cardinality</p>
-    </div>
-
-    <div class="redundancy">
-      <h4>No clear governing body</h4>
-      <ul class="tight">
-        <li>SRS calls itself "the OS" — but doesn't control its own intake eligibility</li>
-        <li>Ticket Service Java gates who reaches SRS, and owns priority + queue outright</li>
-        <li>SRS has orphaned callback endpoints — an async design that was never actually wired</li>
-      </ul>
-      <p class="evidence">F-04, F-06 (03-findings.md)</p>
-    </div>
-
-    <div class="redundancy">
-      <h4>Duplication logic doesn't prevent duplicates</h4>
-      <ul class="tight">
-        <li>No idempotency key on Ticket Service Java's create call to SRS</li>
-        <li>SRS skips dedup on its <b>dominant</b> channel, trusting Kapture is strictly 1:1</li>
-        <li>That assumption is false — duplicates already slip through</li>
-      </ul>
-      <p class="evidence">F-10, F-14 (03-findings.md)</p>
-    </div>
-
-    <div class="redundancy">
-      <h4>Kapture edits after creation are dropped</h4>
-      <ul class="tight">
-        <li>Type / title / priority changes post-creation never reach SRS</li>
-        <li>One exception (queue → partner) creates a <b>new</b> complaint instead of updating the existing one</li>
-      </ul>
-      <p class="evidence">F-15 (03-findings.md)</p>
-    </div>
-
-    <div class="redundancy">
-      <h4>Reopen logic — half-verified</h4>
-      <ul class="tight">
-        <li>Two claimed sources: Kapture (verified) and customer app (not verified)</li>
-        <li>Whether the customer app talks to SRS directly is still open</li>
-      </ul>
-      <p class="evidence">G-3 (04-open-questions.md)</p>
-    </div>
-
-    <div class="redundancy">
-      <h4>Closure doesn't confirm round-trip</h4>
-      <ul class="tight">
-        <li><b>Kapture → CSP app:</b> no evidence a Kapture closure reaches SRS/TAS at all</li>
-        <li><b>SRS → Kapture:</b> resolution event has no confirmed consumer</li>
-        <li>One CSP action calls an SRS endpoint that doesn't exist — dead end, no error shown</li>
-      </ul>
-      <p class="evidence">G-1 (04-open-questions.md) · F-02 (03-findings.md)</p>
-    </div>
-
-    <div class="redundancy">
-      <h4>Chat-origin is erased before it reaches SRS</h4>
-      <ul class="tight">
-        <li>Chat tickets are tagged <code>ticket_source: CUSTOMER_CHAT</code> — the tag stops at Ticket Service Java</li>
-        <li>Reopens are sent to SRS with <code>intake_channel</code> hardcoded to <b>"CALL_CENTER"</b></li>
-        <li>SRS can't tell the 3 creation paths apart — "how many tickets come from chat?" is unanswerable from SRS data</li>
-      </ul>
-      <p class="evidence">F-17 (03-findings.md) · SrsClient.java:152</p>
-    </div>
-
-    <div class="redundancy">
-      <h4>On re-contact, the agent is blind and the signal is lost</h4>
-      <ul class="tight">
-        <li>Customer calls back — agent can add a comment, but sees <b>no ticket status</b>, no CSP progress</li>
-        <li>Agent can't reach the partner either; can only apologise and point at the app</li>
-        <li>The app shows no live update at that moment — the comment goes nowhere</li>
-      </ul>
-      <p class="evidence">Kapture-side process — not modelled in SRS or TAS</p>
-    </div>
-
-    <div class="redundancy">
-      <h4>Also found</h4>
-      <ul class="tight">
-        <li>Verification runs but can't block closure — for either subtype it even runs on</li>
-        <li>Governance docs are behind the code — a shipped, revenue feature still marked out-of-scope</li>
-        <li>"Intake channel" is really just a payload-shape flag, not a real signal</li>
-      </ul>
-      <p class="evidence">F-01, F-05, F-09 (03-findings.md)</p>
+      <div class="phase">
+        <div class="phase-label"><span class="n">Phase 4</span><span class="t">Consequences</span></div>
+        <ul class="tight">
+          <li>SRS signals Quality OS → CSP score, bonus, routing exposure</li>
+          <li>SRS should also inform Kapture — <b>no confirmed receiver exists</b> (A-08)</li>
+          <li>Reopen reuses the lineage and can be triggered from Kapture or the customer app; both route through Ticket Service Java</li>
+        </ul>
+      </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════════════ 4 · ROADMAP ══ -->
+  <!-- ═══════════════════════════════ 03 ═══ -->
+  <section id="anomalies">
+    <div class="sec-head"><span class="sec-num">03</span><h2>Redundancies &amp; anomalies in the current system</h2></div>
+    <p class="sec-sub">
+      Every anomaly found so far, with an ID so we can reference them directly. Severity is about
+      product impact, not code quality: <b>Critical</b> means something is silently wrong in
+      production data or a customer/CSP-facing flow.
+    </p>
+
+    <div class="sev-group">
+      <div class="sev-head sev-crit"><span class="pip"></span>Critical<span class="cnt">3 · customer or CSP impact today</span></div>
+
+      <div class="anom">
+        <div class="anom-id">A-01</div>
+        <div>
+          <h4>One ticket can become two complaints</h4>
+          <ul class="tight">
+            <li>Neither path is idempotent — create sends no key, and the key the reopen path does send is silently discarded by SRS</li>
+            <li>SRS skips duplicate detection on <b>every</b> ticket arriving from Ticket Service Java, trusting Kapture is strictly 1:1</li>
+            <li>An ordinary queue move back to Partner — not just a resolution — fires a second, unrelated complaint</li>
+            <li><b>Effect:</b> while the first is still open, two TAT clocks run and Quality OS counts the CSP's outcome twice</li>
+          </ul>
+          <p class="ev">F-14, F-10 · SrsClient.java · KaptureTicketController.java</p>
+        </div>
+      </div>
+
+      <div class="anom">
+        <div class="anom-id">A-02</div>
+        <div>
+          <h4>Verification cannot fail a resolution</h4>
+          <ul class="tight">
+            <li>The connectivity check runs for only a subset of subtypes</li>
+            <li>Even a negative verdict closes the ticket as resolved and system-verified</li>
+            <li><b>Effect:</b> "verified" in our data does not mean verified</li>
+          </ul>
+          <p class="ev">F-01 · VerificationServiceImpl.java · ResolutionFinalizer.java</p>
+        </div>
+      </div>
+
+      <div class="anom">
+        <div class="anom-id">A-03</div>
+        <div>
+          <h4>One CSP action strands the ticket permanently</h4>
+          <ul class="tight">
+            <li>The action is offered on every in-progress card but calls an SRS endpoint that does not exist — a 404</li>
+            <li>The failure is swallowed <b>after</b> the card has already moved to "awaiting verification"</li>
+            <li><b>Effect:</b> the CSP watches it move, then nothing ever happens — no error, no timers, no way back</li>
+          </ul>
+          <p class="ev">F-02 · HttpSrOsAdapter.java · RestoreCandidateServiceImpl.java</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sev-group">
+      <div class="sev-head sev-struct"><span class="pip"></span>Structural<span class="cnt">7 · architecture and ownership</span></div>
+
+      <div class="anom">
+        <div class="anom-id">A-04</div>
+        <div>
+          <h4>No single source of truth for a ticket</h4>
+          <ul class="tight">
+            <li>One customer contact produces three IDs: Kapture ticket, SRS complaint, TAS candidate</li>
+            <li>Ticket → Complaint is legitimately 1:many because of reopens</li>
+            <li><b>Effect:</b> "what is the status of this ticket" has three different answers</li>
+          </ul>
+          <p class="ev">notes/01-system-map.md — ID cardinality</p>
+        </div>
+      </div>
+
+      <div class="anom">
+        <div class="anom-id">A-05</div>
+        <div>
+          <h4>Two systems compute TAT independently</h4>
+          <ul class="tight">
+            <li>SRS owns per-subtype deadlines with a working/calendar clock and its own breach guard</li>
+            <li>Ticket Service Java runs a second mechanism on plain calendar arithmetic, covering SERVICE, OTHERS and SHIFTING tickets</li>
+            <li>Neither reads the other's deadline — verified in both directions, zero references</li>
+            <li><b>Effect:</b> the two clocks can disagree about whether the same ticket breached</li>
+          </ul>
+          <p class="ev">ComplaintServiceImpl.java · WithinTatGuard.java · TicketType3Or4TatBreachHandler.java</p>
+        </div>
+      </div>
+
+      <div class="anom">
+        <div class="anom-id">A-06</div>
+        <div>
+          <h4>No clear governing body</h4>
+          <ul class="tight">
+            <li>SRS is described as "the OS" but does not control its own intake eligibility</li>
+            <li>Ticket Service Java decides who reaches SRS, and owns priority and queue outright</li>
+            <li>SRS carries orphaned callback endpoints from an async design that was never wired</li>
+          </ul>
+          <p class="ev">F-04, F-06 · SrsClient.isEligibleForSrs</p>
+        </div>
+      </div>
+
+      <div class="anom">
+        <div class="anom-id">A-07</div>
+        <div>
+          <h4>Kapture edits after creation are dropped</h4>
+          <ul class="tight">
+            <li>Type, title and priority changes made post-creation never reach SRS — none of the three even calls the SRS client</li>
+            <li>The one exception — a queue move to Partner, triggered by ordinary reshuffling like "pushed to queue" — creates a <b>new</b> complaint rather than updating the existing one</li>
+          </ul>
+          <p class="ev">F-15 · TicketServiceImpl.java</p>
+        </div>
+      </div>
+
+      <div class="anom">
+        <div class="anom-id">A-08</div>
+        <div>
+          <h4>Closure does not confirm a round trip</h4>
+          <ul class="tight">
+            <li>SRS emits a resolution event with no confirmed consumer anywhere</li>
+            <li>No evidence a Kapture-side closure ever reaches SRS or TAS</li>
+            <li><b>Effect:</b> the two sides can disagree on whether a ticket is closed</li>
+          </ul>
+          <p class="ev">G-1 · SrsClient.java — three methods, none of them close</p>
+        </div>
+      </div>
+
+      <div class="anom">
+        <div class="anom-id">A-09</div>
+        <div>
+          <h4>Chat origin is erased before SRS sees it</h4>
+          <ul class="tight">
+            <li>Chat tickets carry <code>ticket_source: CUSTOMER_CHAT</code> — the tag stops at Ticket Service Java and is never forwarded</li>
+            <li>SRS labels everything <code>CALL_CENTER</code>, inferred from payload shape — a caller cannot override it</li>
+            <li>Even the titles match: the chat bot emits the same disposition strings a Kapture agent picks from</li>
+            <li><b>Effect:</b> no field, sent or derived, separates the three paths. "How many tickets come from chat" is unanswerable from SRS data</li>
+          </ul>
+          <p class="ev">F-17 · SrsClient.java:90-93 · SubmitComplaintRequest.java · KaptureProblemMapper.java</p>
+        </div>
+      </div>
+    </div>
+
+      <div class="anom">
+        <div class="anom-id">A-10</div>
+        <div>
+          <h4>The customer's own words never reach anyone who can act</h4>
+          <ul class="tight">
+            <li>SRS consumes the problem text once at intake to derive a class, then <b>discards it</b> — there is no title or problem column anywhere in its schema</li>
+            <li>The chat path never forwards the customer's message either; the ticket title is a canned string</li>
+            <li><b>Effect:</b> the CSP arriving on site sees a category, never what the customer actually said</li>
+          </ul>
+          <p class="ev">ComplaintServiceImpl.java — problem is transient · CreateTicketRequest.java — no comment field</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sev-group">
+      <div class="sev-head sev-watch"><span class="pip"></span>Watch<span class="cnt">3 · known, lower urgency</span></div>
+
+      <div class="anom">
+        <div class="anom-id">A-11</div>
+        <div>
+          <h4>On re-contact, the agent is blind</h4>
+          <ul class="tight">
+            <li>A customer calling back can have a comment logged, but the agent sees no ticket status and no CSP progress</li>
+            <li>The agent cannot reach the partner, and the app shows no live update at that moment</li>
+            <li><b>Effect:</b> the strongest signal we get — a customer chasing — goes nowhere</li>
+          </ul>
+          <p class="ev">Kapture-side process — not modelled in SRS or TAS</p>
+        </div>
+      </div>
+
+      <div class="anom">
+        <div class="anom-id">A-11</div>
+        <div>
+          <h4>Governance documents trail the code</h4>
+          <ul class="tight">
+            <li>A shipped, revenue-relevant feature is still marked out of scope in the locked governance doc</li>
+            <li>Several service docs contradict their own implementation on payloads and retry behaviour</li>
+          </ul>
+          <p class="ev">F-05 · CX-1171 docs vs. code</p>
+        </div>
+      </div>
+
+      <div class="anom">
+        <div class="anom-id">A-12</div>
+        <div>
+          <h4>Intake channel is a payload-shape flag, not a real channel</h4>
+          <ul class="tight">
+            <li>The field records which payload shape the caller used, not where the ticket came from</li>
+            <li>Compounds A-09 — the channel dimension is unreliable for analysis</li>
+          </ul>
+          <p class="ev">F-09 · ComplaintServiceImpl.java</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════ 04 ═══ -->
   <section id="roadmap">
-    <div class="section-head"><span class="section-num">04</span><h2>Recommendations / roadmap</h2></div>
-    <div class="disclaimer">Directional, not prescriptive — areas to dig into next.</div>
+    <div class="sec-head"><span class="sec-num">04</span><h2>Roadmap</h2></div>
+    <p class="sec-sub">
+      Directional, not prescriptive — the areas worth going deeper on, sequenced by what unblocks
+      what. Each links back to the anomaly it addresses.
+    </p>
 
-    <div class="roadmap-group">
-      <h3>Proactive communication to both parties</h3>
-      <div class="roadmap-items">
-        <div class="roadmap-item">
+    <div class="horizon">
+      <div class="horizon-head"><h3>Proactive communication to both parties</h3><span class="when">the core bet</span></div>
+      <div class="rm-items">
+        <div class="rm">
           <h4>Before escalation</h4>
-          <p>Tell both parties before either asks. SRS already has anomaly-classification
-          scaffolding — nothing feeds it today.</p>
+          <p>Tell the customer and the CSP before either has to ask. SRS already has anomaly-classification scaffolding; nothing feeds it.</p>
+          <span class="link">closes the Path A gap</span>
         </div>
-        <div class="roadmap-item">
+        <div class="rm">
           <h4>During an active ticket</h4>
-          <p>The CSP app can already show dynamic context on a card. Mechanism exists; the
-          proactive trigger doesn't.</p>
+          <p>The CSP app can already show dynamic context on a card. The mechanism exists — the proactive trigger does not.</p>
+          <span class="link">addresses A-10</span>
         </div>
-        <div class="roadmap-item">
+        <div class="rm">
           <h4>After resolution</h4>
-          <p>Fix the SRS → Kapture round-trip and the customer-app reopen path first.</p>
+          <p>Fix the SRS → Kapture round trip first; there is little point adding comms on a loop we cannot confirm closes.</p>
+          <span class="link">depends on A-08</span>
         </div>
       </div>
     </div>
 
-    <div class="roadmap-group">
-      <h3>False resolution / verification layer</h3>
-      <div class="roadmap-items">
-        <div class="roadmap-item">
+    <div class="horizon">
+      <div class="horizon-head"><h3>False resolution &amp; verification</h3><span class="when">highest data impact</span></div>
+      <div class="rm-items">
+        <div class="rm">
           <h4>Ping data verification</h4>
-          <p>Same gap — the classification exists, the feed into it doesn't.</p>
+          <p>Same underused scaffolding — the classification exists, the feed into it does not.</p>
+          <span class="link">addresses A-02</span>
         </div>
-        <div class="roadmap-item">
+        <div class="rm">
           <h4>Customer handshake</h4>
-          <p>Half-built already: the CSP action and TAS state exist. Only the SRS endpoint is
-          missing.</p>
+          <p>Half-built already: the CSP action and the TAS state both exist. Only the SRS endpoint is missing.</p>
+          <span class="link">addresses A-03</span>
         </div>
-        <div class="roadmap-item">
-          <h4>Reopen → consequences</h4>
-          <p>A reopen is evidence of a false resolution. Check whether it reaches CSP scoring at
-          all today.</p>
+        <div class="rm">
+          <h4>Reopen consequences</h4>
+          <p>A reopen is evidence of a false resolution. Worth checking whether that evidence reaches CSP scoring at all.</p>
+          <span class="link">addresses A-02</span>
         </div>
       </div>
     </div>
 
-    <div class="roadmap-group">
-      <h3>System overhaul</h3>
-      <div class="roadmap-items">
-        <div class="roadmap-item">
+    <div class="horizon">
+      <div class="horizon-head"><h3>System overhaul</h3><span class="when">structural</span></div>
+      <div class="rm-items">
+        <div class="rm">
           <h4>One source of truth</h4>
-          <p>Collapse the 3-ID problem, or formally document which ID is authoritative for what.</p>
+          <p>Collapse the three-ID problem, or formally document which ID is authoritative for which question.</p>
+          <span class="link">addresses A-04</span>
         </div>
-        <div class="roadmap-item">
+        <div class="rm">
           <h4>Explicit ownership</h4>
-          <p>A real RACI across Kapture / Ticket Service / SRS / TAS.</p>
+          <p>A real RACI across Kapture, Ticket Service, SRS and TAS — today authority is split with nothing drawing the line.</p>
+          <span class="link">addresses A-05, A-06</span>
         </div>
-        <div class="roadmap-item">
+        <div class="rm">
           <h4>Reliable sync</h4>
-          <p>Replace fire-and-forget, no-idempotency POSTs with delivery that can be confirmed.</p>
+          <p>Replace fire-and-forget calls with delivery that can be confirmed, and carry origin through the chain.</p>
+          <span class="link">addresses A-01, A-07, A-09</span>
         </div>
       </div>
     </div>
 
-    <div class="roadmap-group">
-      <h3>Outage handling</h3>
-      <div class="roadmap-items">
-        <div class="roadmap-item">
+    <div class="horizon">
+      <div class="horizon-head"><h3>Outage handling</h3><span class="when">new capability</span></div>
+      <div class="rm-items">
+        <div class="rm">
           <h4>Ticket clubbing</h4>
-          <p>Outages aren't linked to tickets today — one outage, many ungrouped tickets.</p>
+          <p>Outages are not linked to tickets today — one outage produces many ungrouped tickets.</p>
+          <span class="link">compounds A-01</span>
         </div>
-        <div class="roadmap-item">
+        <div class="rm">
           <h4>One-tap resolution</h4>
-          <p>Needs a bulk action — TAS is entirely per-candidate today.</p>
+          <p>Needs a bulk action; TAS is entirely per-candidate today.</p>
+          <span class="link">new build</span>
         </div>
-        <div class="roadmap-item">
+        <div class="rm">
           <h4>TAT for outages</h4>
-          <p>Classification exists in SRS; nothing wires it end to end yet.</p>
+          <p>The classification exists in SRS; nothing wires it end to end from detection to a stamped deadline.</p>
+          <span class="link">new build</span>
         </div>
       </div>
     </div>
   </section>
 
   <footer class="foot">
-    Current-state claims traced to <code>csp-support-resolution-service</code>,
-    <code>csp-tas-service</code>, <code>ticket-service-java</code>. Roadmap is direction, not a
-    verified spec.
+    Current-state claims are traced against the running code in <code>csp-support-resolution-service</code>,
+    <code>csp-tas-service</code>, <code>ticket-service-java</code> and <code>booking-service-java</code>.
+    The roadmap is direction, not a verified spec.
   </footer>
 
 </div>
