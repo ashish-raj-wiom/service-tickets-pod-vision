@@ -437,7 +437,7 @@
     <div class="glance">
       <div class="glance-item"><span class="num">0</span><span class="lbl">proactive paths exist today — every path is escalation-only</span></div>
       <div class="glance-item"><span class="num">3</span><span class="lbl">separate IDs per ticket, no single source of truth</span></div>
-      <div class="glance-item"><span class="num">2</span><span class="lbl">independent TAT engines — no evidence they reconcile</span></div>
+      <div class="glance-item"><span class="num">3</span><span class="lbl">ways a ticket is created — SRS can't tell them apart</span></div>
       <div class="glance-item"><span class="num">?</span><span class="lbl">resolution → Kapture: no confirmed delivery found</span></div>
     </div>
   </header>
@@ -480,8 +480,9 @@
   <!-- ══════════════════════════════════════════════════════════ 2 · CURRENT SYSTEM ══ -->
   <section id="current-system">
     <div class="section-head"><span class="section-num">02</span><h2>Current system, and how it works</h2></div>
-    <p class="lede">Escalation-only — nothing here is proactive. Seven parties touch a ticket
-    before it's done.</p>
+    <p class="lede">Escalation-only — nothing here is proactive. Three ways in
+    (<b>1</b> IVR call · <b>2</b> customer chat · <b>3</b> Kapture agent), all converging on
+    Ticket Service Java.</p>
 
     <div class="diagram">
       <svg viewBox="0 0 1040 396" role="img" aria-labelledby="dgt dgd">
@@ -509,16 +510,22 @@
         <rect x="20" y="24" width="130" height="46" rx="6" fill="var(--surface-alt)" stroke="var(--rule)"/>
         <text x="85" y="52" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--ink)">Customer</text>
 
-        <path d="M150 47 L206 47" stroke="var(--slate)" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
-        <text x="178" y="38" text-anchor="middle" font-size="10" fill="var(--slate)">calls</text>
+        <circle cx="178" cy="34" r="9" fill="var(--accent)"/>
+        <text x="178" y="38" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">1</text>
+        <path d="M150 55 L206 55" stroke="var(--slate)" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
+        <text x="178" y="70" text-anchor="middle" font-size="9.5" fill="var(--slate)">calls</text>
 
         <rect x="210" y="24" width="150" height="46" rx="6" fill="var(--surface-alt)" stroke="var(--rule)"/>
-        <text x="285" y="52" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--ink)">IVR / Call Centre</text>
+        <text x="285" y="45" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--ink)">IVR / Call Centre</text>
+        <text x="285" y="60" text-anchor="middle" font-size="9" fill="var(--slate)">half ticket → agent → full</text>
 
         <path d="M360 47 L416 47" stroke="var(--slate)" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
 
         <rect x="420" y="24" width="130" height="46" rx="6" fill="var(--surface-alt)" stroke="var(--rule)"/>
-        <text x="485" y="52" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--ink)">Kapture</text>
+        <text x="485" y="45" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--ink)">Kapture</text>
+        <circle cx="437" cy="62" r="8" fill="var(--accent)"/>
+        <text x="437" y="65.5" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">3</text>
+        <text x="500" y="65" text-anchor="middle" font-size="9" fill="var(--slate)">agent can create direct</text>
 
         <path d="M485 70 L485 108" stroke="var(--slate)" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
         <text x="500" y="94" font-size="10" fill="var(--slate)">webhook</text>
@@ -553,14 +560,17 @@
         <path d="M600 47 L554 47" stroke="var(--danger)" stroke-width="1.3" stroke-dasharray="2 3" fill="none" marker-end="url(#ard)"/>
 
         <!-- Row 3: customer app + csp app -->
-        <rect x="20" y="270" width="170" height="50" rx="6" fill="var(--surface-alt)" stroke="var(--rule)"/>
-        <text x="105" y="298" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--ink)">Customer App</text>
+        <rect x="20" y="270" width="190" height="56" rx="6" fill="var(--surface-alt)" stroke="var(--rule)"/>
+        <text x="115" y="292" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--ink)">Customer App — chat</text>
+        <text x="115" y="308" text-anchor="middle" font-size="9" fill="var(--slate)">classifier → self-diagnosis → ticket</text>
+        <circle cx="34" cy="284" r="8" fill="var(--accent)"/>
+        <text x="34" y="287.5" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">2</text>
 
-        <path d="M105 270 L105 240 L400 240 L400 168" stroke="var(--slate)" stroke-width="1.3" fill="none" marker-end="url(#ar)"/>
-        <text x="250" y="232" text-anchor="middle" font-size="9.5" fill="var(--slate)">pulls status directly (no push)</text>
+        <path d="M210 288 L 350 288 L 350 170" stroke="var(--slate)" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
+        <text x="278" y="281" text-anchor="middle" font-size="9" fill="var(--slate)">creates ticket</text>
 
-        <path d="M85 270 L85 78" stroke="var(--rule)" stroke-width="1.2" fill="none" marker-end="url(#ar)"/>
-        <text x="20" y="150" font-size="9.5" fill="var(--slate)" transform="rotate(-90 20 150)">customer uses</text>
+        <path d="M115 270 L115 244 L460 244 L460 168" stroke="var(--slate)" stroke-width="1.1" stroke-dasharray="4 3" fill="none" marker-end="url(#ar)"/>
+        <text x="300" y="238" text-anchor="middle" font-size="9.5" fill="var(--slate)">pulls status directly (no push)</text>
 
         <rect x="850" y="270" width="170" height="50" rx="6" fill="var(--surface-alt)" stroke="var(--rule)"/>
         <text x="935" y="292" text-anchor="middle" font-size="12.5" font-weight="600" fill="var(--ink)">CSP App</text>
@@ -618,13 +628,13 @@
     </div>
 
     <div class="phase">
-      <div class="phase-head"><span class="phase-n">Phase 1</span><h3>Ticket Creation</h3></div>
+      <div class="phase-head"><span class="phase-n">Phase 1</span><h3>Ticket Creation — 3 ways in</h3></div>
       <ul class="tight">
-        <li>Customer calls, or an agent logs a ticket in Kapture</li>
-        <li>Kapture → Ticket Service Java: minimal payload, <b>no idempotency key</b></li>
-        <li>Ticket Service Java gates eligibility — <b>6 of Kapture's ticket types never reach SRS</b></li>
-        <li>SRS resolves connection + CSP, classifies the problem independently (own mapping table, separate from Ticket Service Java's)</li>
-        <li>Unrecognised text: rejected or silently redirected</li>
+        <li><b>1 · IVR call</b> — half ticket → agent picks a fixed Ticket Type + comment → full ticket. Ticket Type sets the queue; <b>SRS only ever gets the Partner queue</b></li>
+        <li><b>2 · Customer chat</b> — classifier tags it <code>internetIssue</code> → self-diagnosis (plan check → open/resolved-ticket check → router ping) → only if still broken, a ticket is created</li>
+        <li><b>3 · Kapture direct</b> — agent creates it outright</li>
+        <li>All three converge on Ticket Service Java: minimal payload, <b>no idempotency key</b></li>
+        <li>SRS then classifies independently, off its own mapping table — unrecognised text is rejected or silently redirected</li>
       </ul>
     </div>
 
@@ -635,6 +645,7 @@
         <li>TAS Restore creates the CSP's card; manages attention via 4 timers + a version counter</li>
         <li>Card reaches the CSP app via a gateway that passes the subtype through untouched</li>
         <li>On-screen copy is resolved <b>client-side</b>, from the app's own label file — not sent by any backend</li>
+        <li>After 12–24h of inactivity, <b>PFT calls the CSP manually</b> — an outbound human process, separate from SRS's own escalation ladder</li>
       </ul>
     </div>
 
@@ -728,6 +739,26 @@
         <li>One CSP action calls an SRS endpoint that doesn't exist — dead end, no error shown</li>
       </ul>
       <p class="evidence">G-1 (04-open-questions.md) · F-02 (03-findings.md)</p>
+    </div>
+
+    <div class="redundancy">
+      <h4>Chat-origin is erased before it reaches SRS</h4>
+      <ul class="tight">
+        <li>Chat tickets are tagged <code>ticket_source: CUSTOMER_CHAT</code> — the tag stops at Ticket Service Java</li>
+        <li>Reopens are sent to SRS with <code>intake_channel</code> hardcoded to <b>"CALL_CENTER"</b></li>
+        <li>SRS can't tell the 3 creation paths apart — "how many tickets come from chat?" is unanswerable from SRS data</li>
+      </ul>
+      <p class="evidence">F-17 (03-findings.md) · SrsClient.java:152</p>
+    </div>
+
+    <div class="redundancy">
+      <h4>On re-contact, the agent is blind and the signal is lost</h4>
+      <ul class="tight">
+        <li>Customer calls back — agent can add a comment, but sees <b>no ticket status</b>, no CSP progress</li>
+        <li>Agent can't reach the partner either; can only apologise and point at the app</li>
+        <li>The app shows no live update at that moment — the comment goes nowhere</li>
+      </ul>
+      <p class="evidence">Kapture-side process — not modelled in SRS or TAS</p>
     </div>
 
     <div class="redundancy">
