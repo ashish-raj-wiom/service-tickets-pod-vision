@@ -480,20 +480,18 @@
   <!-- ══════════════════════════════════════════════════════════ 2 · CURRENT SYSTEM ══ -->
   <section id="current-system">
     <div class="section-head"><span class="section-num">02</span><h2>Current system, and how it works</h2></div>
-    <p class="lede">Escalation-only. Seven parties touch a ticket before it's done — solid lines
-    below are real, dashed are not.</p>
+    <p class="lede">Escalation-only — nothing here is proactive. Seven parties touch a ticket
+    before it's done.</p>
 
     <div class="diagram">
-      <svg viewBox="0 0 1040 640" role="img" aria-labelledby="dgt dgd">
-        <title id="dgt">Service ticket flow — all parties, current state and vision</title>
-        <desc id="dgd">Solid lines are the reactive path that exists today: customer calls,
-        IVR/agent logs a Kapture ticket, Ticket Service Java relays it to SRS, SRS creates a task
-        for TAS Restore, TAS renders a card in the CSP app via the gateway, and the customer app
-        separately pulls ticket status directly from Ticket Service Java. Quality OS receives
-        SRS's resolution signal. A dashed red line marks a known gap: SRS's COMPLAINT_RESOLVED
-        event has no confirmed consumer that updates Kapture. The bottom band, in blue dashed
-        lines, is the proactive vision that does not exist today: telemetry feeding both apps and
-        SRS directly, bypassing the whole reactive chain.</desc>
+      <svg viewBox="0 0 1040 396" role="img" aria-labelledby="dgt dgd">
+        <title id="dgt">Service ticket flow — all parties, current state</title>
+        <desc id="dgd">The reactive path that exists today: customer calls, IVR/agent logs a
+        Kapture ticket, Ticket Service Java relays it to SRS, SRS creates a task for TAS Restore,
+        TAS renders a card in the CSP app via the gateway, and the customer app separately pulls
+        ticket status directly from Ticket Service Java. Quality OS receives SRS's resolution
+        signal. A dashed red annotation marks a known gap: SRS's COMPLAINT_RESOLVED event has no
+        confirmed consumer that updates Kapture.</desc>
 
         <defs>
           <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -580,31 +578,11 @@
         <rect x="500" y="214" width="180" height="48" rx="6" fill="var(--surface-alt)" stroke="var(--rule)"/>
         <text x="590" y="242" text-anchor="middle" font-size="12" font-weight="600" fill="var(--ink)">Quality OS →</text>
         <text x="590" y="256" text-anchor="middle" font-size="9.5" fill="var(--slate)">score, bonus, routing</text>
-
-        <!-- VISION BAND -->
-        <rect x="16" y="410" width="1008" height="200" rx="12" fill="none" stroke="var(--future)" stroke-width="1.4" stroke-dasharray="3 5"/>
-        <text x="36" y="436" font-size="12" font-weight="700" fill="var(--future-deep)">VISION — path A, does not exist today</text>
-
-        <rect x="40" y="460" width="220" height="54" rx="7" fill="var(--future-wash)" stroke="var(--future)"/>
-        <text x="150" y="482" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--future-deep)">Telemetry / Ping Data</text>
-        <text x="150" y="500" text-anchor="middle" font-size="10" fill="var(--future-deep)">Wiom already has this signal</text>
-
-        <path d="M260 476 L 850 300" stroke="var(--future)" stroke-width="1.4" stroke-dasharray="2 4" fill="none" marker-end="url(#arf)"/>
-        <text x="560" y="410" text-anchor="middle" font-size="10" fill="var(--future-deep)">proactively notify the CSP — no path exists</text>
-
-        <path d="M260 484 L 100 295" stroke="var(--future)" stroke-width="1.4" stroke-dasharray="2 4" fill="none" marker-end="url(#arf)"/>
-        <text x="150" y="410" text-anchor="middle" font-size="10" fill="var(--future-deep)">proactively notify the customer — no path exists</text>
-
-        <path d="M260 470 C 500 470, 650 300, 660 168" stroke="var(--future)" stroke-width="1.4" stroke-dasharray="2 4" fill="none" marker-end="url(#arf)"/>
-        <text x="500" y="558" text-anchor="middle" font-size="10" fill="var(--future-deep)">SYSTEM_ANOMALY / outage classification already exists in SRS — nothing feeds it</text>
-
-        <text x="420" y="590" text-anchor="middle" font-size="10.5" fill="var(--slate)">Everything above the dashed box is path B (escalation-only). The box is what path A would require.</text>
       </svg>
     </div>
     <div class="legend">
       <span><span class="swatch solid"></span> exists today, verified in code</span>
-      <span><span class="swatch dashed"></span> vision — no code path exists</span>
-      <span><span class="swatch gap"></span> exists as an emitted event, but the receiving side is unverified/missing</span>
+      <span><span class="swatch gap"></span> emitted event, receiving side unverified/missing</span>
     </div>
 
     <h3>Who owns what</h3>
