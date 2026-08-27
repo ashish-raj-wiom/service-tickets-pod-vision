@@ -193,7 +193,7 @@
       <div class="metric"><span class="fig">0</span><span class="cap">proactive paths — every ticket starts with the customer</span></div>
       <div class="metric"><span class="fig">3</span><span class="cap">ways a ticket is created — SRS cannot tell them apart</span></div>
       <div class="metric"><span class="fig">3</span><span class="cap">IDs per ticket, no single source of truth</span></div>
-      <div class="metric"><span class="fig">13</span><span class="cap">anomalies logged, 3 customer-facing today</span></div>
+      <div class="metric"><span class="fig">11</span><span class="cap">anomalies logged, 3 customer-facing today</span></div>
     </div>
 
     <nav class="toc">
@@ -306,14 +306,14 @@
         <path d="M485 70 L485 108" stroke="var(--slate)" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
         <text x="500" y="94" font-size="10" fill="var(--slate)">webhook</text>
 
-        <rect x="600" y="24" width="220" height="46" rx="6" fill="var(--crit-wash)" stroke="var(--crit)" stroke-width="1.2" stroke-dasharray="3 3"/>
-        <text x="710" y="42" text-anchor="middle" font-size="10" font-weight="700" fill="var(--crit)">COMPLAINT_RESOLVED</text>
-        <text x="710" y="57" text-anchor="middle" font-size="9" fill="var(--crit)">no confirmed consumer — A-08</text>
-        <path d="M600 47 L554 47" stroke="var(--crit)" stroke-width="1.3" stroke-dasharray="2 3" fill="none" marker-end="url(#ard)"/>
+        <rect x="600" y="24" width="230" height="46" rx="6" fill="var(--crit-wash)" stroke="var(--crit)" stroke-width="1.2" stroke-dasharray="3 3"/>
+        <text x="715" y="42" text-anchor="middle" font-size="10" font-weight="700" fill="var(--crit)">Closure made in Kapture</text>
+        <text x="715" y="57" text-anchor="middle" font-size="9" fill="var(--crit)">never reaches SRS or TAS — A-08</text>
+        <path d="M554 47 L596 47" stroke="var(--crit)" stroke-width="1.3" stroke-dasharray="2 3" fill="none" marker-end="url(#ard)"/>
 
         <rect x="330" y="112" width="230" height="52" rx="7" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.6"/>
         <text x="445" y="134" text-anchor="middle" font-size="13" font-weight="700" fill="var(--accent)">Ticket Service Java</text>
-        <text x="445" y="152" text-anchor="middle" font-size="10.5" fill="var(--slate)">every path funnels through here</text>
+        <text x="445" y="152" text-anchor="middle" font-size="10.5" fill="var(--slate)">in: 3 paths · out: resolution → Kapture</text>
 
         <path d="M560 138 L616 138" stroke="var(--slate)" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
         <text x="588" y="129" text-anchor="middle" font-size="9.5" fill="var(--slate)">POST /complaints</text>
@@ -492,12 +492,13 @@
       </div></div>
 
       <div class="anom"><div class="anom-id">A-08</div><div>
-        <h4>Closure does not confirm a round trip</h4>
+        <h4>Closure syncs one way only</h4>
         <ul class="tight">
-          <li>SRS emits a resolution event with no confirmed consumer, and no evidence a Kapture-side closure reaches SRS or TAS</li>
-          <li><b>Effect:</b> the two sides can disagree on whether a ticket is closed</li>
+          <li><b>CSP resolves → Kapture updates: this works.</b> Ticket Service Java has two intake paths (an HTTP endpoint whose payload mirrors SRS's resolution event, and a queue handler) — both fetch live Kapture state and write the right sub-status back</li>
+          <li><b>The reverse does not.</b> Its SRS client has exactly two outbound methods, create and reopen — no close, resolve or cancel. An agent closing a ticket in Kapture never tells SRS or TAS</li>
+          <li><b>Effect:</b> a ticket closed on the Kapture side stays open in the CSP's app and keeps its SRS clock running</li>
         </ul>
-        <p class="ev">G-1</p>
+        <p class="ev">TicketController.ResolveTicket · TicketQueueListener.handleResolveTicket · SrsClient.java</p>
       </div></div>
 
       <div class="anom"><div class="anom-id">A-09</div><div>
@@ -529,24 +530,6 @@
       </div></div>
     </div>
 
-    <div class="sev-group">
-      <div class="sev-head sev-watch"><span class="pip"></span>Watch<span class="cnt">2</span></div>
-
-      <div class="anom"><div class="anom-id">A-12</div><div>
-        <h4>Governance documents trail the code</h4>
-        <ul class="tight">
-          <li>A shipped, revenue-relevant feature is still marked out of scope in the locked governance doc; several service docs contradict their own implementation</li>
-        </ul>
-        <p class="ev">F-05</p>
-      </div></div>
-
-      <div class="anom"><div class="anom-id">A-13</div><div>
-        <h4>Intake channel is a payload-shape flag</h4>
-        <ul class="tight">
-          <li>Records which payload shape the caller used, not where the ticket came from. Compounds A-09 — the channel dimension is unusable</li>
-        </ul>
-        <p class="ev">F-09</p>
-      </div></div>
     </div>
   </section>
 
@@ -561,7 +544,7 @@
     <div class="rm-block">
       <div class="rm-block-head">
         <h3>O2 · Make the reported path shorter and visible</h3>
-        <p>Thirteen known anomalies live here. Most of this is repair, not invention.</p>
+        <p>Every anomaly in Section 03 lives here. Most of this is repair, not invention.</p>
       </div>
 
       <div class="rm-row">
