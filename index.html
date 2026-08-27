@@ -304,6 +304,44 @@
     max-width: 68ch;
   }
 
+  /* ─── objectives ───────────────────────────────────────── */
+  .scope {
+    font-family: var(--sans);
+    font-size: .92rem;
+    color: var(--slate);
+    border-left: 2px solid var(--rule);
+    padding: 3px 0 3px 16px;
+    max-width: 66ch;
+    margin-bottom: 34px;
+  }
+  .objs { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); margin-bottom: 30px; }
+  .obj {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--future);
+    border-radius: 9px;
+    padding: 22px 24px;
+  }
+  .obj .oid {
+    font-family: var(--mono); font-size: 11.5px; color: var(--future);
+    letter-spacing: .06em; display: block; margin-bottom: 7px;
+  }
+  .obj h3 { font-size: 1.08rem; margin-bottom: 10px; }
+  .obj p { font-family: var(--sans); font-size: .92rem; line-height: 1.55; color: var(--ink-soft); margin: 0 0 14px; }
+  .obj .meas-label {
+    font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--slate-light);
+    padding-top: 12px; border-top: 1px solid var(--rule-soft); display: block; margin-bottom: 7px;
+  }
+  .obj ul { font-family: var(--sans); font-size: .87rem; margin: 0; padding-left: 16px; color: var(--slate); line-height: 1.5; }
+  .obj ul li { margin-bottom: 4px; }
+  .guardrail {
+    font-family: var(--sans); font-size: .9rem; color: var(--ink-soft);
+    background: var(--crit-wash); border: 1px solid var(--crit);
+    border-radius: 8px; padding: 14px 18px; max-width: 68ch; margin-bottom: 30px;
+  }
+  .guardrail b { color: var(--crit); }
+
   /* ─── diagram ──────────────────────────────────────────── */
   .diagram {
     background: var(--surface);
@@ -463,33 +501,77 @@
     <div class="sec-head"><span class="sec-num">01</span><h2>Objective</h2></div>
 
     <div class="objective">
-      If the customer faces an issue and Wiom knows about it — via data or telemetry — both
-      parties should be told proactively, so it never gets lost and the customer never has to
-      escalate. If they do escalate, we resolve it as fast as possible.
+      When a customer's service breaks, Wiom should find out first, act before they have to ask,
+      and — while it is being fixed — keep everyone able to see what is happening.
     </div>
 
-    <h3>The ideal condition</h3>
+    <p class="scope">
+      <b>Scope.</b> This starts the moment an issue exists. Preventing issues from happening at
+      all is network and infrastructure's mandate, not this POD's — we own what happens between
+      an issue arising and it being genuinely resolved.
+    </p>
+
+    <div class="objs">
+      <div class="obj">
+        <span class="oid">O1</span>
+        <h3>Shrink the share of issues the customer has to report</h3>
+        <p>Today every single ticket begins with a customer contact. Move that toward Wiom
+        detecting the problem and acting on it before the customer needs to call.</p>
+        <span class="meas-label">How we'd know</span>
+        <ul>
+          <li>% of issues detected before customer contact</li>
+          <li>False-positive rate — the guardrail, not a vanity metric</li>
+          <li>Contacts avoided per detected issue</li>
+        </ul>
+      </div>
+
+      <div class="obj">
+        <span class="oid">O2</span>
+        <h3>Make the reported path shorter, and visible to everyone on it</h3>
+        <p>Resolve faster — but also make sure the customer, the CSP and the agent can all see
+        where the ticket stands. <b>Being unheard is a separate harm from being unresolved:</b>
+        a customer who can see progress is not panicking or repeating themselves, even before
+        the fix lands.</p>
+        <span class="meas-label">How we'd know</span>
+        <ul>
+          <li>Median time to resolution</li>
+          <li>Repeat contacts per ticket</li>
+          <li>Reopen rate</li>
+          <li>% of open tickets where all three parties can see current status</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="guardrail">
+      <b>Guardrail.</b> We will not generate proactive tickets faster than they can be worked.
+      Detection that outruns capacity moves the failure from "customer had to call" to "CSP was
+      buried" — and a proactive ticket raised on a healthy connection costs real trust.
+    </div>
+
+    <h3>The two paths, once an issue exists</h3>
     <div class="tree">
-      <span class="nb good"><span class="tag">Ideal</span>Customer does not face any issue</span>
+      <span class="nb good"><span class="tag">Entry</span>A customer's service is broken</span>
       <ul>
         <li>
-          <span class="nb future"><span class="tag">Path A</span>Wiom finds out first — data, telemetry, own intelligence</span>
+          <span class="nb future"><span class="tag">Path A · O1</span>Wiom detects it first — telemetry, data, own intelligence</span>
           <ul>
-            <li><span class="nb future"><span class="tag">Target</span>Notify <b>both</b> parties with an ETA — resolved before the customer needs to call</span></li>
+            <li><span class="nb future"><span class="tag">Target</span>Tell <b>both</b> parties with an ETA, and resolve before the customer needs to call</span></li>
           </ul>
         </li>
         <li>
-          <span class="nb esc"><span class="tag">Path B · A was missed</span>Customer escalates — call, chat, or agent</span>
+          <span class="nb esc"><span class="tag">Path B · O2 · A was missed</span>The customer reports it — call, chat, or agent</span>
           <ul>
-            <li><span class="nb esc"><span class="tag">Fallback</span>Resolve as fast as possible</span></li>
+            <li><span class="nb esc"><span class="tag">Target</span>Resolve fast, and keep the customer, CSP and agent all able to see where it stands</span></li>
           </ul>
         </li>
       </ul>
     </div>
 
     <p class="callout">
-      Everything in Section 02 is <b>Path B</b>. Path A does not exist in code today — that gap
-      is what Section 04 is organised around.
+      Everything in Section 02 is <b>Path B</b>, and most of it is broken rather than missing —
+      13 code-level anomalies. <b>Path A does not exist at all.</b> That difference is why the
+      roadmap tackles them in the order it does: O2 is largely fix-what's-there, O1 is new
+      capability.
     </p>
   </section>
 
