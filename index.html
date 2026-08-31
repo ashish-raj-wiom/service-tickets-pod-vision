@@ -543,43 +543,44 @@
   <section id="roadmap">
     <div class="sec-head"><span class="sec-num">04</span><h2>Roadmap</h2></div>
     <p class="sec-sub">
-      Seven areas, each tagged with the objective it serves. <b>01–04 are repair</b> — fixing a
-      reported path that is broken today. <b>06–07 are new capability.</b> 05 sits between them
-      because without measurement we cannot show any of it worked.
+      Seven areas, each tagged with the objective it serves. Item names match the anomaly they
+      resolve, so this section reads directly against Section 03. <b>01–04 are repair</b> —
+      fixing a reported path that is broken today. <b>06–07 are new capability.</b> 05 sits
+      between them because without measurement we cannot show any of it worked.
     </p>
 
     <div class="rm-block">
       <div class="rm-block-head">
         <div class="hd"><span class="rm-num">01</span><h3>Information flow</h3><span class="otag">O2</span></div>
-        <p><b>Completely broken today.</b> Once a ticket exists, none of the four parties on it can
-        see what the others are doing — the agent, the CSP, the customer and the ticket itself are
-        each working from a different, partial picture. Five of the eleven anomalies live here.</p>
+        <p><b>Completely broken today.</b> Once a ticket exists, none of the parties on it can see
+        what the others are doing. A-11 alone accounts for four separate blind spots, which is why
+        it is broken out by direction below.</p>
       </div>
 
       <div class="rm-row">
-        <span class="name">Ticket status for the agent</span>
-        <span class="why">The agent on a callback is blind — no view of state, no idea what the CSP is doing, and no way to reach the partner.</span>
+        <span class="name">Agent → ticket</span>
+        <span class="why">The agent on a callback is blind — no view of state, no idea what the CSP is doing, and no way to reach the partner. Give them the status before they have to apologise for not having it.</span>
         <span class="ref">A-11</span>
       </div>
       <div class="rm-row">
-        <span class="name">Repeat-contact signal to the CSP</span>
+        <span class="name">CSP → customer</span>
         <span class="why">The CSP does not know a customer has chased three times. That count is one of the strongest urgency signals we hold, and it stops at Kapture.</span>
         <span class="ref">A-11</span>
       </div>
       <div class="rm-row">
-        <span class="name">Agent intelligence to the CSP</span>
-        <span class="why">Availability, severity and fault clues learned on the call would help the CSP fix it faster. None of it travels.</span>
-        <span class="ref">A-10 · A-11</span>
+        <span class="name">Agent → CSP</span>
+        <span class="why">Availability, severity and fault clues learned on the call would help the CSP fix it faster. None of it travels today.</span>
+        <span class="ref">A-11</span>
       </div>
       <div class="rm-row">
-        <span class="name">The customer's words reach the CSP</span>
+        <span class="name">Ticket → customer</span>
+        <span class="why">The app shows no live status, so calling is the only way to find out — the very loop we are trying to break.</span>
+        <span class="ref">A-11</span>
+      </div>
+      <div class="rm-row">
+        <span class="name">The customer's own words never reach anyone who can act</span>
         <span class="why">SRS derives a category then discards the text. The CSP arrives knowing "no internet" and nothing the customer actually said.</span>
         <span class="ref">A-10</span>
-      </div>
-      <div class="rm-row">
-        <span class="name">Status the customer can self-serve</span>
-        <span class="why">The app shows no live view, so calling is the only way to find out — the very loop we are trying to break.</span>
-        <span class="ref">A-11</span>
       </div>
     </div>
 
@@ -591,13 +592,13 @@
       </div>
 
       <div class="rm-row">
-        <span class="name">Verification that can actually fail</span>
+        <span class="name">Verification cannot fail a resolution</span>
         <span class="why">A check that cannot block closure is a measurement, not a gate. Until it can fail, "verified" is not a claim we can stand behind.</span>
         <span class="ref">A-02</span>
       </div>
       <div class="rm-row">
-        <span class="name">Customer handshake</span>
-        <span class="why">Half-built — the CSP action and TAS state both exist; only the SRS endpoint is missing, which is why the action currently strands the ticket.</span>
+        <span class="name">One CSP action strands the ticket permanently</span>
+        <span class="why">Half-built already — the CSP action and TAS state both exist; only the SRS endpoint is missing. Building it both unblocks the customer handshake and stops the stranding.</span>
         <span class="ref">A-03</span>
       </div>
       <div class="rm-row">
@@ -625,17 +626,17 @@
       </div>
 
       <div class="rm-row">
-        <span class="name">One TAT definition</span>
+        <span class="name">Two systems compute TAT independently</span>
         <span class="why">SRS computes per-subtype on a working/calendar clock; Ticket Service Java computes three flat calendar buckets. The customer is told one number and the CSP is judged on another.</span>
         <span class="ref">A-05</span>
       </div>
       <div class="rm-row">
-        <span class="name">One ticket count</span>
+        <span class="name">No single source of truth for a ticket</span>
         <span class="why">One contact produces three IDs, and Ticket → Complaint is legitimately 1:many. "How many tickets" has no single answer today.</span>
         <span class="ref">A-04</span>
       </div>
       <div class="rm-row">
-        <span class="name">Explicit ownership</span>
+        <span class="name">No clear governing body</span>
         <span class="why">A real RACI across Kapture, Ticket Service, SRS and TAS. SRS is called the OS but does not control its own intake eligibility.</span>
         <span class="ref">A-06</span>
       </div>
@@ -654,22 +655,22 @@
       </div>
 
       <div class="rm-row">
-        <span class="name">Kapture edits reach SRS</span>
-        <span class="why">Type, title and priority changes made after creation are dropped — none of the three even calls the SRS client.</span>
+        <span class="name">Kapture edits after creation are dropped</span>
+        <span class="why">Type, title and priority changes made after creation never reach SRS — none of the three even calls the SRS client.</span>
         <span class="ref">A-07</span>
       </div>
       <div class="rm-row">
-        <span class="name">Closure syncs both ways</span>
+        <span class="name">Closure syncs one way only</span>
         <span class="why">CSP resolution reaches Kapture correctly. The reverse does not — a closure made in Kapture leaves the ticket open on the CSP's card with its clock running.</span>
         <span class="ref">A-08</span>
       </div>
       <div class="rm-row">
-        <span class="name">Idempotent complaint creation</span>
-        <span class="why">No key on create, and the reopen key SRS receives is discarded. An ordinary queue move fires a second, unlineaged complaint that Quality then counts twice.</span>
+        <span class="name">One ticket can become two complaints</span>
+        <span class="why">No idempotency key on create, and the reopen key SRS receives is discarded. An ordinary queue move fires a second, unlineaged complaint that Quality then counts twice.</span>
         <span class="ref">A-01</span>
       </div>
       <div class="rm-row">
-        <span class="name">Ticket origin carried through</span>
+        <span class="name">Chat origin is erased before SRS sees it</span>
         <span class="why">The chat tag stops at Ticket Service Java. Forwarding it would light up a channel field SRS already declares but never receives.</span>
         <span class="ref">A-09</span>
       </div>
@@ -683,8 +684,8 @@
     <div class="rm-block">
       <div class="rm-block-head">
         <div class="hd"><span class="rm-num">05</span><h3>Measurement</h3><span class="otag">gates both</span></div>
-        <p>The objective carries explicit measures. Several of them cannot be computed today — this
-        has to land early or nothing above can be shown to have worked.</p>
+        <p>The objective carries explicit measures. Several cannot be computed today — this has to
+        land early or nothing above can be shown to have worked.</p>
       </div>
 
       <div class="rm-row">
@@ -720,7 +721,7 @@
       <div class="rm-row">
         <span class="name">Proactive notice to both parties</span>
         <span class="why">Tell the customer and the CSP we believe something is wrong, with an ETA, before either has to ask. The CSP app can already render dynamic context — the trigger is what is missing.</span>
-        <span class="ref">O1</span>
+        <span class="ref">new</span>
       </div>
       <div class="rm-row">
         <span class="name">Detection precision</span>
