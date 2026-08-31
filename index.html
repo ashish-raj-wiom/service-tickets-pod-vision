@@ -157,8 +157,15 @@
   /* roadmap — linear rows, no cards */
   .rm-block { margin-bottom: 40px; }
   .rm-block-head { padding-bottom: 10px; border-bottom: 2px solid var(--future); margin-bottom: 4px; }
-  .rm-block-head h3 { color: var(--future-deep); font-size: 1.1rem; margin: 0 0 4px; }
-  .rm-block-head p { font-family: var(--sans); font-size: .87rem; color: var(--slate); margin: 0; max-width: 70ch; }
+  .rm-block-head .hd { display: flex; align-items: baseline; gap: 11px; flex-wrap: wrap; margin-bottom: 4px; }
+  .rm-block-head h3 { color: var(--future-deep); font-size: 1.1rem; margin: 0; }
+  .rm-block-head .otag {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .05em;
+    color: var(--future); background: var(--future-wash); border: 1px solid var(--future);
+    padding: 2px 8px; border-radius: 4px;
+  }
+  .rm-block-head p { font-family: var(--sans); font-size: .87rem; color: var(--slate); margin: 0; max-width: 72ch; }
+  .rm-num { font-family: var(--mono); font-size: 12px; color: var(--slate-light); }
   .rm-row { display: grid; grid-template-columns: 210px 1fr 78px; gap: 22px; align-items: baseline; padding: 15px 0; border-bottom: 1px solid var(--rule-soft); }
   .rm-row .name { font-family: var(--sans); font-size: .93rem; font-weight: 620; color: var(--ink); }
   .rm-row .why { font-family: var(--sans); font-size: .875rem; line-height: 1.5; color: var(--ink-soft); }
@@ -538,19 +545,30 @@
   <section id="roadmap">
     <div class="sec-head"><span class="sec-num">04</span><h2>Roadmap</h2></div>
     <p class="sec-sub">
-      Organised against the two objectives. O2 comes first because it is largely
-      fix-what's-already-broken; O1 is new capability built on top of a path we can trust.
+      Six areas, each tagged with the objective it serves. Measurement is listed last but gates
+      the rest — without it we cannot show any of this worked.
     </p>
 
     <div class="rm-block">
       <div class="rm-block-head">
-        <h3>O2 · Make the reported path shorter and visible</h3>
-        <p>Every anomaly in Section 03 lives here. Most of this is repair, not invention.</p>
+        <div class="hd"><span class="rm-num">01</span><h3>Information flow &amp; proactive comms</h3><span class="otag">O1 + O2</span></div>
+        <p>Nobody on a ticket can see what anyone else is doing — and before a ticket exists, nobody
+        is told anything at all. Covers the whole arc: before, during, and after.</p>
       </div>
 
       <div class="rm-row">
+        <span class="name">Telemetry into classification</span>
+        <span class="why">SRS already has anomaly-classification scaffolding and nothing feeds it. This is the unlock for everything proactive.</span>
+        <span class="ref">new</span>
+      </div>
+      <div class="rm-row">
+        <span class="name">Proactive notice before the call</span>
+        <span class="why">Tell the customer and the CSP we believe something is wrong, with an ETA, before either has to ask.</span>
+        <span class="ref">O1</span>
+      </div>
+      <div class="rm-row">
         <span class="name">Ticket status for the agent</span>
-        <span class="why">The agent on a callback is blind — no view of state, no idea what the CSP is doing. Give them the status before they have to apologise for not having it.</span>
+        <span class="why">The agent on a callback is blind — no view of state, no idea what the CSP is doing, and no way to reach the partner.</span>
         <span class="ref">A-11</span>
       </div>
       <div class="rm-row">
@@ -560,14 +578,28 @@
       </div>
       <div class="rm-row">
         <span class="name">Agent intelligence to the CSP</span>
-        <span class="why">Availability, severity and fault clues learned on the call would help the CSP fix it faster. None of it travels today.</span>
+        <span class="why">Availability, severity and fault clues learned on the call would help the CSP fix it faster. None of it travels.</span>
         <span class="ref">A-10 · A-11</span>
       </div>
       <div class="rm-row">
+        <span class="name">The customer's words reach the CSP</span>
+        <span class="why">SRS derives a category then discards the text. The CSP arrives knowing "no internet" and nothing the customer actually said.</span>
+        <span class="ref">A-10</span>
+      </div>
+      <div class="rm-row">
         <span class="name">Status the customer can self-serve</span>
-        <span class="why">The app gives no live view, so calling is the only way to find out — the very loop we are trying to break.</span>
+        <span class="why">The app shows no live view, so calling is the only way to find out — the very loop we are trying to break.</span>
         <span class="ref">A-11</span>
       </div>
+    </div>
+
+    <div class="rm-block">
+      <div class="rm-block-head">
+        <div class="hd"><span class="rm-num">02</span><h3>Reopen, false resolution &amp; verification</h3><span class="otag">O2</span></div>
+        <p>Tickets close without being fixed, and the reopen arrives as if it were a brand-new
+        problem. Every change here moves a CSP's pay, so attribution has to be decided alongside.</p>
+      </div>
+
       <div class="rm-row">
         <span class="name">Verification that can actually fail</span>
         <span class="why">A check that cannot block closure is a measurement, not a gate. Until it can fail, "verified" is not a claim we can stand behind.</span>
@@ -575,60 +607,128 @@
       </div>
       <div class="rm-row">
         <span class="name">Customer handshake</span>
-        <span class="why">Half-built already — the CSP action and the TAS state both exist. Only the SRS endpoint is missing.</span>
+        <span class="why">Half-built — the CSP action and TAS state both exist; only the SRS endpoint is missing, which is why the action currently strands the ticket.</span>
         <span class="ref">A-03</span>
       </div>
       <div class="rm-row">
-        <span class="name">Reopen consequences</span>
-        <span class="why">A reopen is evidence of a false resolution. Check whether that evidence reaches CSP scoring at all.</span>
+        <span class="name">A reopen should arrive as a reopen</span>
+        <span class="why">Today the CSP receives what looks like a fresh ticket and works it from scratch, instead of seeing that this customer, this fault, was already attempted.</span>
+        <span class="ref">A-11</span>
+      </div>
+      <div class="rm-row">
+        <span class="name">Ping-data verification</span>
+        <span class="why">The same signal that would detect a fault can confirm a fix. Pairs directly with making verification able to fail.</span>
         <span class="ref">A-02</span>
       </div>
       <div class="rm-row">
-        <span class="name">One source of truth</span>
-        <span class="why">Collapse the three-ID problem, or formally document which ID is authoritative for which question.</span>
-        <span class="ref">A-04</span>
-      </div>
-      <div class="rm-row">
-        <span class="name">Explicit ownership</span>
-        <span class="why">A real RACI across Kapture, Ticket Service, SRS and TAS — today authority is split with nothing drawing the line.</span>
-        <span class="ref">A-05 · A-06</span>
-      </div>
-      <div class="rm-row">
-        <span class="name">Reliable sync</span>
-        <span class="why">Replace fire-and-forget calls with delivery that can be confirmed, and carry ticket origin through the chain instead of erasing it.</span>
-        <span class="ref">A-01 · A-07 · A-09</span>
+        <span class="name">CSP attribution rules</span>
+        <span class="why">Decide — before shipping any of the above — whether a reopen is scored against the CSP, and who owns a proactively-raised ticket. Flipping verification silently is a pay cut for the same work.</span>
+        <span class="ref">decision</span>
       </div>
     </div>
 
     <div class="rm-block">
       <div class="rm-block-head">
-        <h3>O1 · Detect before the customer reports</h3>
-        <p>New capability. Worth building on a path we can already trust — which is why it follows O2.</p>
+        <div class="hd"><span class="rm-num">03</span><h3>Definitions &amp; ownership</h3><span class="otag">O2</span></div>
+        <p>Nobody can agree on the number. Every service holds its own database, its own definitions,
+        and its own opinion of the same ticket.</p>
       </div>
 
       <div class="rm-row">
-        <span class="name">Telemetry into classification</span>
-        <span class="why">SRS already has anomaly-classification scaffolding and nothing feeds it. This is the single unlock for everything else in O1.</span>
-        <span class="ref">new</span>
+        <span class="name">One TAT definition</span>
+        <span class="why">SRS computes per-subtype on a working/calendar clock; Ticket Service Java computes three flat calendar buckets. The customer is told one number and the CSP is judged on another.</span>
+        <span class="ref">A-05</span>
       </div>
       <div class="rm-row">
-        <span class="name">Proactive notice to both parties</span>
-        <span class="why">Tell the customer and the CSP before either has to ask, with an ETA. The CSP app can already render dynamic context — the trigger is what's missing.</span>
-        <span class="ref">new</span>
+        <span class="name">One ticket count</span>
+        <span class="why">One contact produces three IDs, and Ticket → Complaint is legitimately 1:many. "How many tickets" has no single answer today.</span>
+        <span class="ref">A-04</span>
       </div>
       <div class="rm-row">
-        <span class="name">Ping-data verification</span>
-        <span class="why">The same signal that would detect an issue can confirm a fix. Pairs directly with making verification able to fail.</span>
-        <span class="ref">A-02</span>
+        <span class="name">Explicit ownership</span>
+        <span class="why">A real RACI across Kapture, Ticket Service, SRS and TAS. SRS is called the OS but does not control its own intake eligibility.</span>
+        <span class="ref">A-06</span>
       </div>
       <div class="rm-row">
-        <span class="name">Outage clubbing</span>
-        <span class="why">Outages are not linked to tickets today — one outage produces many ungrouped tickets, on a path that already skips dedup.</span>
+        <span class="name">Scope decision on excluded tickets</span>
+        <span class="why">Only Partner-queue tickets reach SRS, and some types never do. Decide whether that is intended scope or an unowned gap.</span>
+        <span class="ref">decision</span>
+      </div>
+    </div>
+
+    <div class="rm-block">
+      <div class="rm-block-head">
+        <div class="hd"><span class="rm-num">04</span><h3>Broken linkages</h3><span class="otag">O2</span></div>
+        <p>Data that should move between systems and does not. Each one is a concrete, bounded fix
+        rather than a redesign.</p>
+      </div>
+
+      <div class="rm-row">
+        <span class="name">Kapture edits reach SRS</span>
+        <span class="why">Type, title and priority changes made after creation are dropped — none of the three even calls the SRS client.</span>
+        <span class="ref">A-07</span>
+      </div>
+      <div class="rm-row">
+        <span class="name">Closure syncs both ways</span>
+        <span class="why">CSP resolution reaches Kapture correctly. The reverse does not — a closure made in Kapture leaves the ticket open on the CSP's card with its clock running.</span>
+        <span class="ref">A-08</span>
+      </div>
+      <div class="rm-row">
+        <span class="name">Idempotent complaint creation</span>
+        <span class="why">No key on create, and the reopen key SRS receives is discarded. An ordinary queue move fires a second, unlineaged complaint that Quality then counts twice.</span>
+        <span class="ref">A-01</span>
+      </div>
+      <div class="rm-row">
+        <span class="name">Ticket origin carried through</span>
+        <span class="why">The chat tag stops at Ticket Service Java. Forwarding it would light up a channel field SRS already declares but never receives.</span>
+        <span class="ref">A-09</span>
+      </div>
+      <div class="rm-row">
+        <span class="name">Platform takeover — verify what is wired</span>
+        <span class="why">Not greenfield: SRS emits the events, TAS consumes them, and a reason code exists. The work is confirming what actually fires in production and what is missing.</span>
+        <span class="ref">verify</span>
+      </div>
+    </div>
+
+    <div class="rm-block">
+      <div class="rm-block-head">
+        <div class="hd"><span class="rm-num">05</span><h3>Measurement</h3><span class="otag">gates both</span></div>
+        <p>The objective carries explicit measures. Several of them cannot be computed today — this
+        has to land early or nothing above can be shown to have worked.</p>
+      </div>
+
+      <div class="rm-row">
+        <span class="name">Record the TAT breach</span>
+        <span class="why">Ticket Service Java fires a breach notification and stores nothing — its <code>is_sla_breach</code> field is only ever set false. Breaches on that side are currently uncountable.</span>
+        <span class="ref">A-05</span>
+      </div>
+      <div class="rm-row">
+        <span class="name">Make duplicates identifiable</span>
+        <span class="why">The duplicate complaint carries no lineage, so Quality OS cannot exclude it even in principle. At minimum it needs to be detectable.</span>
+        <span class="ref">A-01</span>
+      </div>
+      <div class="rm-row">
+        <span class="name">Baseline the objective measures</span>
+        <span class="why">Repeat-contact rate, reopen rate by type, median resolution. Without a starting number the O1/O2 targets stay directional.</span>
+        <span class="ref">O1 · O2</span>
+      </div>
+    </div>
+
+    <div class="rm-block">
+      <div class="rm-block-head">
+        <div class="hd"><span class="rm-num">06</span><h3>Outage handling</h3><span class="otag">O1</span></div>
+        <p>Outages and service tickets are unlinked today. At scale this is where detection either
+        pays off or buries the CSP.</p>
+      </div>
+
+      <div class="rm-row">
+        <span class="name">Ticket clubbing</span>
+        <span class="why">One outage produces many ungrouped tickets, on a path that already skips duplicate detection.</span>
         <span class="ref">A-01</span>
       </div>
       <div class="rm-row">
         <span class="name">One-tap resolution</span>
-        <span class="why">Needs a bulk action; TAS is entirely per-candidate today. Without it, detection at scale just buries the CSP.</span>
+        <span class="why">Needs a bulk action; TAS is entirely per-candidate today. This is what keeps the guardrail honest — detection without it just buries the CSP.</span>
         <span class="ref">guardrail</span>
       </div>
       <div class="rm-row">
