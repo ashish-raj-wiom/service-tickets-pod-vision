@@ -452,10 +452,11 @@
       </div></div>
 
       <div class="anom"><div class="anom-id">A-03</div><div>
-        <h4>One CSP action strands the ticket permanently</h4>
+        <h4>One CSP action silently does nothing</h4>
         <ul class="tight">
           <li>Offered on every in-progress card, it calls an SRS endpoint that does not exist — and the 404 is swallowed <b>after</b> the card has already moved to "awaiting verification"</li>
-          <li><b>Effect:</b> the CSP watches it move, then nothing happens — no error, no timers, no way back</li>
+          <li>The customer is never asked to verify, and the CSP is left with a card carrying <b>zero available actions</b></li>
+          <li><b>Effect:</b> the ticket can now only move via SRS's escalation path — resolved late, by someone else, rather than by the CSP who was working it</li>
         </ul>
         <p class="ev">F-02</p>
       </div></div>
@@ -574,8 +575,8 @@
         <span class="ref">A-02</span>
       </div>
       <div class="rm-row">
-        <span class="name">One CSP action strands the ticket permanently</span>
-        <span class="why">Half-built already — the CSP action and TAS state both exist; only the SRS endpoint is missing. Building it both unblocks the customer handshake and stops the stranding.</span>
+        <span class="name">One CSP action silently does nothing</span>
+        <span class="why">Half-built already — the CSP action and TAS state both exist; only the SRS endpoint is missing. Building it delivers the customer handshake and stops the card going dead in the CSP's hands.</span>
         <span class="ref">A-03</span>
       </div>
       <div class="rm-row">
@@ -616,11 +617,6 @@
         <span class="name">No clear governing body</span>
         <span class="why">A real RACI across Kapture, Ticket Service, SRS and TAS. SRS is called the OS but does not control its own intake eligibility.</span>
         <span class="ref">A-06</span>
-      </div>
-      <div class="rm-row">
-        <span class="name">Scope decision on excluded tickets</span>
-        <span class="why">Only Partner-queue tickets reach SRS, and some types never do. Decide whether that is intended scope or an unowned gap.</span>
-        <span class="ref">decision</span>
       </div>
     </div>
 
