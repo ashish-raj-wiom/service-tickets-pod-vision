@@ -545,27 +545,19 @@
   <section id="roadmap">
     <div class="sec-head"><span class="sec-num">04</span><h2>Roadmap</h2></div>
     <p class="sec-sub">
-      Six areas, each tagged with the objective it serves. Measurement is listed last but gates
-      the rest — without it we cannot show any of this worked.
+      Seven areas, each tagged with the objective it serves. <b>01–04 are repair</b> — fixing a
+      reported path that is broken today. <b>06–07 are new capability.</b> 05 sits between them
+      because without measurement we cannot show any of it worked.
     </p>
 
     <div class="rm-block">
       <div class="rm-block-head">
-        <div class="hd"><span class="rm-num">01</span><h3>Information flow &amp; proactive comms</h3><span class="otag">O1 + O2</span></div>
-        <p>Nobody on a ticket can see what anyone else is doing — and before a ticket exists, nobody
-        is told anything at all. Covers the whole arc: before, during, and after.</p>
+        <div class="hd"><span class="rm-num">01</span><h3>Information flow</h3><span class="otag">O2</span></div>
+        <p><b>Completely broken today.</b> Once a ticket exists, none of the four parties on it can
+        see what the others are doing — the agent, the CSP, the customer and the ticket itself are
+        each working from a different, partial picture. Five of the eleven anomalies live here.</p>
       </div>
 
-      <div class="rm-row">
-        <span class="name">Telemetry into classification</span>
-        <span class="why">SRS already has anomaly-classification scaffolding and nothing feeds it. This is the unlock for everything proactive.</span>
-        <span class="ref">new</span>
-      </div>
-      <div class="rm-row">
-        <span class="name">Proactive notice before the call</span>
-        <span class="why">Tell the customer and the CSP we believe something is wrong, with an ETA, before either has to ask.</span>
-        <span class="ref">O1</span>
-      </div>
       <div class="rm-row">
         <span class="name">Ticket status for the agent</span>
         <span class="why">The agent on a callback is blind — no view of state, no idea what the CSP is doing, and no way to reach the partner.</span>
@@ -716,7 +708,32 @@
 
     <div class="rm-block">
       <div class="rm-block-head">
-        <div class="hd"><span class="rm-num">06</span><h3>Outage handling</h3><span class="otag">O1</span></div>
+        <div class="hd"><span class="rm-num">06</span><h3>Proactive detection &amp; comms</h3><span class="otag">O1</span></div>
+        <p>New capability, not repair. Nothing in the system today looks for a problem before the
+        customer reports one — this is the whole of O1, and it is worth building on a path we can
+        already trust.</p>
+      </div>
+
+      <div class="rm-row">
+        <span class="name">Telemetry into classification</span>
+        <span class="why">SRS already carries anomaly-classification scaffolding — the classes, executors and SLAs exist — and nothing feeds it. This is the single unlock for everything else here.</span>
+        <span class="ref">new</span>
+      </div>
+      <div class="rm-row">
+        <span class="name">Proactive notice to both parties</span>
+        <span class="why">Tell the customer and the CSP we believe something is wrong, with an ETA, before either has to ask. The CSP app can already render dynamic context — the trigger is what is missing.</span>
+        <span class="ref">O1</span>
+      </div>
+      <div class="rm-row">
+        <span class="name">Detection precision</span>
+        <span class="why">A proactive ticket raised on a healthy connection costs real trust and real CSP time. False-positive rate is the number that decides whether this ships, not a footnote.</span>
+        <span class="ref">guardrail</span>
+      </div>
+    </div>
+
+    <div class="rm-block">
+      <div class="rm-block-head">
+        <div class="hd"><span class="rm-num">07</span><h3>Outage handling</h3><span class="otag">O1</span></div>
         <p>Outages and service tickets are unlinked today. At scale this is where detection either
         pays off or buries the CSP.</p>
       </div>
