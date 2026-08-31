@@ -199,8 +199,8 @@
     <div class="metrics">
       <div class="metric"><span class="fig">0</span><span class="cap">proactive paths — every ticket starts with the customer</span></div>
       <div class="metric"><span class="fig">3</span><span class="cap">ways a ticket is created — SRS cannot tell them apart</span></div>
-      <div class="metric"><span class="fig">3</span><span class="cap">IDs per ticket, no single source of truth</span></div>
-      <div class="metric"><span class="fig">10</span><span class="cap">anomalies logged, 3 customer-facing today</span></div>
+      <div class="metric"><span class="fig">4</span><span class="cap">systems of record per ticket, no single source of truth</span></div>
+      <div class="metric"><span class="fig">11</span><span class="cap">anomalies logged, 3 customer-facing today</span></div>
     </div>
 
     <nav class="toc">
@@ -463,13 +463,14 @@
     </div>
 
     <div class="sev-group">
-      <div class="sev-head sev-struct"><span class="pip"></span>Structural<span class="cnt">7</span></div>
+      <div class="sev-head sev-struct"><span class="pip"></span>Structural<span class="cnt">8</span></div>
 
       <div class="anom"><div class="anom-id">A-04</div><div>
         <h4>No single source of truth for a ticket</h4>
         <ul class="tight">
-          <li>One contact produces three IDs — Kapture ticket, SRS complaint, TAS candidate — and Ticket → Complaint is legitimately 1:many because of reopens</li>
-          <li><b>Effect:</b> "what is the status of this ticket" has three different answers</li>
+          <li>One contact produces <b>four</b> IDs — Kapture ticket, Ticket Service Java ticket, SRS complaint, TAS candidate — each in its own store</li>
+          <li>Ticket → Complaint is legitimately 1:many because of reopens, so the chain is not even uniformly 1:1</li>
+          <li><b>Effect:</b> "what is the status of this ticket" has four possible answers</li>
         </ul>
       </div></div>
 
@@ -531,6 +532,17 @@
           <li><b>Effect:</b> a disposition Kapture happily accepts can be one SRS has never heard of — rejected outright, or silently redirected, depending on a feature flag</li>
         </ul>
         <p class="ev">KaptureProblemMapper · PRIMARY_CLASS_TO_EXECUTOR</p>
+      </div></div>
+
+      <div class="anom"><div class="anom-id">A-11</div><div>
+        <h4>Kapture is a system of record whose distinctive data never leaves it</h4>
+        <ul class="tight">
+          <li>Kapture holds its own ticket, and Ticket Service Java holds a <b>separate</b> record with its own id plus a pointer back — two stores before SRS has even been called</li>
+          <li>What Kapture uniquely owns — <b>queue, priority and agent comments</b> — reaches none of the downstream systems. SRS has no priority or queue field at all</li>
+          <li>Of the agent's three actions, only ticket creation propagates. The comment and the resolve stop at Kapture's boundary</li>
+          <li><b>Effect:</b> we run a full CRM as the front door, and almost none of what it captures reaches the people doing the work</li>
+        </ul>
+        <p class="ev">TicketEntity: <code>ticket_id</code> + <code>kapture_ticket_id</code> · SRS: zero occurrences of priority/queue</p>
       </div></div>
     </div>
   </section>
@@ -623,7 +635,7 @@
       </div>
       <div class="rm-row">
         <span class="name">No single source of truth for a ticket</span>
-        <span class="why">One contact produces three IDs, and Ticket → Complaint is legitimately 1:many. "How many tickets" has no single answer today.</span>
+        <span class="why">One contact produces four IDs across four stores, and Ticket → Complaint is legitimately 1:many. "How many tickets" has no single answer today.</span>
         <span class="ref">A-04</span>
       </div>
       <div class="rm-row">
@@ -635,6 +647,11 @@
         <span class="name">The same ticket is classified twice, in two vocabularies</span>
         <span class="why">Kapture's dropdown decides the queue; SRS independently re-derives class and executor from the same string. One of the two should be authoritative — today both are, and they are aligned by hand across three places.</span>
         <span class="ref">A-10</span>
+      </div>
+      <div class="rm-row">
+        <span class="name">Kapture is a system of record whose distinctive data never leaves it</span>
+        <span class="why">Decide what Kapture is actually for. If queue, priority and agent comments are operationally useful, they need to travel; if they are not, we are maintaining a front door that captures data nobody downstream can act on.</span>
+        <span class="ref">A-11</span>
       </div>
     </div>
 
