@@ -200,7 +200,7 @@
       <div class="metric"><span class="fig">0</span><span class="cap">proactive paths — every ticket starts with the customer</span></div>
       <div class="metric"><span class="fig">3</span><span class="cap">ways a ticket is created — SRS cannot tell them apart</span></div>
       <div class="metric"><span class="fig">3</span><span class="cap">IDs per ticket, no single source of truth</span></div>
-      <div class="metric"><span class="fig">11</span><span class="cap">anomalies logged, 3 customer-facing today</span></div>
+      <div class="metric"><span class="fig">10</span><span class="cap">anomalies logged, 3 customer-facing today</span></div>
     </div>
 
     <nav class="toc">
@@ -462,7 +462,7 @@
     </div>
 
     <div class="sev-group">
-      <div class="sev-head sev-struct"><span class="pip"></span>Structural<span class="cnt">8</span></div>
+      <div class="sev-head sev-struct"><span class="pip"></span>Structural<span class="cnt">7</span></div>
 
       <div class="anom"><div class="anom-id">A-04</div><div>
         <h4>No single source of truth for a ticket</h4>
@@ -520,14 +520,6 @@
       </div></div>
 
       <div class="anom"><div class="anom-id">A-10</div><div>
-        <h4>The customer's own words never reach anyone who can act</h4>
-        <ul class="tight">
-          <li>SRS derives a class from the problem text then <b>discards it</b> — no title column exists. The chat path never forwards the message either</li>
-          <li><b>Effect:</b> the CSP arriving on site sees a category, never what the customer said</li>
-        </ul>
-      </div></div>
-
-      <div class="anom"><div class="anom-id">A-11</div><div>
         <h4>The three parties cannot see each other</h4>
         <ul class="tight">
           <li><b>Agent → ticket:</b> on a callback the agent sees no status and no CSP progress, and cannot reach the partner</li>
@@ -553,33 +545,28 @@
       <div class="rm-block-head">
         <div class="hd"><span class="rm-num">01</span><h3>Information flow</h3><span class="otag">O2</span></div>
         <p><b>Completely broken today.</b> Once a ticket exists, none of the parties on it can see
-        what the others are doing. A-11 alone accounts for four separate blind spots, which is why
+        what the others are doing. A-10 alone accounts for four separate blind spots, which is why
         it is broken out by direction below.</p>
       </div>
 
       <div class="rm-row">
         <span class="name">Agent → ticket</span>
         <span class="why">The agent on a callback is blind — no view of state, no idea what the CSP is doing, and no way to reach the partner. Give them the status before they have to apologise for not having it.</span>
-        <span class="ref">A-11</span>
+        <span class="ref">A-10</span>
       </div>
       <div class="rm-row">
         <span class="name">CSP → customer</span>
         <span class="why">The CSP does not know a customer has chased three times. That count is one of the strongest urgency signals we hold, and it stops at Kapture.</span>
-        <span class="ref">A-11</span>
+        <span class="ref">A-10</span>
       </div>
       <div class="rm-row">
         <span class="name">Agent → CSP</span>
         <span class="why">Availability, severity and fault clues learned on the call would help the CSP fix it faster. None of it travels today.</span>
-        <span class="ref">A-11</span>
+        <span class="ref">A-10</span>
       </div>
       <div class="rm-row">
         <span class="name">Ticket → customer</span>
         <span class="why">The app shows no live status, so calling is the only way to find out — the very loop we are trying to break.</span>
-        <span class="ref">A-11</span>
-      </div>
-      <div class="rm-row">
-        <span class="name">The customer's own words never reach anyone who can act</span>
-        <span class="why">SRS derives a category then discards the text. The CSP arrives knowing "no internet" and nothing the customer actually said.</span>
         <span class="ref">A-10</span>
       </div>
     </div>
@@ -604,7 +591,7 @@
       <div class="rm-row">
         <span class="name">A reopen should arrive as a reopen</span>
         <span class="why">Today the CSP receives what looks like a fresh ticket and works it from scratch, instead of seeing that this customer, this fault, was already attempted.</span>
-        <span class="ref">A-11</span>
+        <span class="ref">A-10</span>
       </div>
       <div class="rm-row">
         <span class="name">Ping-data verification</span>
