@@ -362,7 +362,7 @@
     <div class="legend">
       <span><span class="sw solid"></span> verified in code</span>
       <span><span class="sw dash"></span> pull, not push</span>
-      <span><span class="sw gap"></span> emitted, receiver unverified</span>
+      <span><span class="sw gap"></span> path that does not exist</span>
     </div>
 
     <h3>Who owns what</h3>
@@ -406,7 +406,8 @@
       <div><span class="n">Phase 4</span><span class="t">Consequences</span></div>
       <ul class="tight">
         <li>SRS signals Quality OS → CSP score, bonus, routing exposure</li>
-        <li>SRS should also inform Kapture — <b>no confirmed receiver exists</b> (A-08)</li>
+        <li><b>The resolution does reach Kapture.</b> Ticket Service Java receives it, fetches live Kapture state and writes back the matching sub-status</li>
+        <li>What does <b>not</b> flow is the reverse — a closure made in Kapture never reaches SRS or TAS (A-08)</li>
         <li>Reopen reuses the lineage, triggered from Kapture or the customer app; both route through Ticket Service Java</li>
       </ul>
     </div>
