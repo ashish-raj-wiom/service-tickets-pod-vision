@@ -200,7 +200,7 @@
       <div class="metric"><span class="fig">0</span><span class="cap">proactive paths — every ticket starts with the customer</span></div>
       <div class="metric"><span class="fig">3</span><span class="cap">ways a ticket is created — SRS cannot tell them apart</span></div>
       <div class="metric"><span class="fig">3</span><span class="cap">IDs per ticket, no single source of truth</span></div>
-      <div class="metric"><span class="fig">9</span><span class="cap">anomalies logged, 3 customer-facing today</span></div>
+      <div class="metric"><span class="fig">10</span><span class="cap">anomalies logged, 3 customer-facing today</span></div>
     </div>
 
     <nav class="toc">
@@ -463,7 +463,7 @@
     </div>
 
     <div class="sev-group">
-      <div class="sev-head sev-struct"><span class="pip"></span>Structural<span class="cnt">6</span></div>
+      <div class="sev-head sev-struct"><span class="pip"></span>Structural<span class="cnt">7</span></div>
 
       <div class="anom"><div class="anom-id">A-04</div><div>
         <h4>No single source of truth for a ticket</h4>
@@ -504,8 +504,9 @@
         <h4>Closure syncs one way only</h4>
         <ul class="tight">
           <li><b>CSP resolves → Kapture updates: this works.</b> Ticket Service Java has two intake paths (an HTTP endpoint whose payload mirrors SRS's resolution event, and a queue handler) — both fetch live Kapture state and write the right sub-status back</li>
-          <li><b>The reverse does not.</b> Its SRS client has exactly two outbound methods, create and reopen — no close, resolve or cancel. An agent closing a ticket in Kapture never tells SRS or TAS</li>
-          <li><b>Effect:</b> a ticket closed on the Kapture side stays open in the CSP's app and keeps its SRS clock running</li>
+          <li><b>The reverse does not.</b> Its SRS client has exactly two outbound methods, create and reopen — no close, resolve or cancel</li>
+          <li><b>And agents do occasionally resolve from Kapture.</b> That closure never reaches SRS or TAS — so this is a live behaviour, not a theoretical hole</li>
+          <li><b>Effect:</b> the ticket stays open on the CSP's card with its SRS clock still running, while Kapture shows it closed. He may travel to a job that no longer exists</li>
         </ul>
         <p class="ev">TicketController.ResolveTicket · TicketQueueListener.handleResolveTicket · SrsClient.java</p>
       </div></div>
@@ -517,7 +518,19 @@
           <li><b>CSP → customer:</b> no idea how many times this customer has already chased</li>
           <li><b>Agent → CSP:</b> availability, severity and fault clues learned on the call never reach the person fixing it</li>
           <li><b>Ticket → customer:</b> the app shows no live status, so calling is the only way to find out</li>
+          <li><b>Effect:</b> the agent's entire surface is three actions — create a ticket, add a comment, occasionally mark resolve. <b>Two of the three go nowhere:</b> the comment reaches no one, and the resolve never leaves Kapture (A-08)</li>
         </ul>
+      </div></div>
+
+      <div class="anom"><div class="anom-id">A-10</div><div>
+        <h4>The same ticket is classified twice, in two vocabularies</h4>
+        <ul class="tight">
+          <li>The agent picks a Ticket Type from Kapture's fixed dropdown — and that single choice decides the <b>queue</b>, i.e. who works the ticket</li>
+          <li>SRS then re-parses the same string through its own mapping to derive class, subtype, SLA and executor — reaching the routing decision independently</li>
+          <li>The two vocabularies are kept aligned <b>by hand</b>, across three places: Kapture's dropdown, SRS's hardcoded map, and SRS's registry table</li>
+          <li><b>Effect:</b> a disposition Kapture happily accepts can be one SRS has never heard of — rejected outright, or silently redirected, depending on a feature flag</li>
+        </ul>
+        <p class="ev">KaptureProblemMapper · PRIMARY_CLASS_TO_EXECUTOR</p>
       </div></div>
     </div>
   </section>
@@ -617,6 +630,11 @@
         <span class="name">No clear governing body</span>
         <span class="why">A real RACI across Kapture, Ticket Service, SRS and TAS. SRS is called the OS but does not control its own intake eligibility.</span>
         <span class="ref">A-06</span>
+      </div>
+      <div class="rm-row">
+        <span class="name">The same ticket is classified twice, in two vocabularies</span>
+        <span class="why">Kapture's dropdown decides the queue; SRS independently re-derives class and executor from the same string. One of the two should be authoritative — today both are, and they are aligned by hand across three places.</span>
+        <span class="ref">A-10</span>
       </div>
     </div>
 
