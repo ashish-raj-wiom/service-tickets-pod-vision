@@ -243,7 +243,7 @@
       <div class="metric"><span class="fig">0</span><span class="cap">proactive paths — every ticket starts with the customer</span></div>
       <div class="metric"><span class="fig">3</span><span class="cap">ways a ticket is created, all funnelling through one relay</span></div>
       <div class="metric"><span class="fig">4</span><span class="cap">systems of record per ticket, four status vocabularies</span></div>
-      <div class="metric"><span class="fig">10</span><span class="cap">anomalies logged, 2 customer-facing today</span></div>
+      <div class="metric"><span class="fig">11</span><span class="cap">anomalies logged, 2 customer-facing today</span></div>
     </div>
 
     <nav class="toc">
@@ -507,7 +507,7 @@
     </div>
 
     <div class="sev-group">
-      <div class="sev-head sev-struct"><span class="pip"></span>Structural<span class="cnt">8</span></div>
+      <div class="sev-head sev-struct"><span class="pip"></span>Structural<span class="cnt">9</span></div>
 
       <div class="anom"><div class="anom-id">A-03</div><div>
         <h4>No reliable source of truth for a ticket</h4>
@@ -653,6 +653,19 @@
         <p class="mtr"><span class="none">Not tracked, and invisible by construction.</span> An
         event with no receiver produces no row anywhere — there is nothing to count. This only
         surfaces by reading the code, which is how it was found.</p>
+      </div></div>
+
+      <div class="anom"><div class="anom-id">A-11</div><div>
+        <h4>Two different working-hour windows for the same CSP</h4>
+        <ul class="tight">
+          <li><b>Service tickets run on 11:00–21:00.</b> That is deliberate and signed off — the OS records it as canonical, all 7 days, no holiday exclusion</li>
+          <li><b>Everything else runs on 09:00–21:00.</b> The gateway owns a working-hours service on that window, and TAS's install module calls it for its own deadline maths</li>
+          <li><b>Effect:</b> the same CSP, on the same morning, is inside his working window for an installation at 09:30 and outside it for a service ticket. Two clocks decide whether he is late, and they disagree for two hours every single day</li>
+        </ul>
+        <p class="ev">SRS working-window-open 11:00 · csp-gateway-service WORKING_HOURS_START 09:00 · TAS install WorkingHoursClient</p>
+        <p class="mtr"><span class="none">Not tracked.</span> Each service validates its own window
+        against itself — nothing compares them. Both are environment variables, so either can move
+        without a deploy and nothing would flag the divergence.</p>
       </div></div>
     </div>
   </section>
@@ -814,6 +827,12 @@
         <span class="why"><b>One TAT calculator, serving every surface.</b> The deadline should be computed once and flow unchanged to the customer's message, the CSP's card and the agent's screen. Today SRS computes per-subtype on a working clock while Ticket Service Java computes flat calendar buckets — and a ticket raised at 21:43 promises the customer 01:43 while the CSP is measured against 15:00 the next day.
         <span class="mtr">Note this is a <i>deletion</i>, not an integration: pick SRS's calculator, remove Ticket Service Java's, and have every surface read the one number.</span></span>
         <span class="ref">A-04</span>
+      </div>
+      <div class="rm-row">
+        <span class="name">Two different working-hour windows for the same CSP</span>
+        <span class="why"><b>One working window across the estate, or an explicit reason for two.</b> Service tickets use 11:00–21:00; the gateway's working-hours service — which TAS install calls — uses 09:00–21:00. Either the service-ticket window is genuinely different work and we say so, or it aligns.
+        <span class="mtr">Pairs with the TAT decision above: agreeing one calculator achieves little if it is fed two definitions of a working hour. Both windows are environment variables, so today either can drift without a deploy.</span></span>
+        <span class="ref">A-11</span>
       </div>
       <div class="rm-row">
         <span class="name">No reliable source of truth for a ticket</span>
