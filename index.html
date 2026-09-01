@@ -221,7 +221,7 @@
       <div class="metric"><span class="fig">0</span><span class="cap">proactive paths — every ticket starts with the customer</span></div>
       <div class="metric"><span class="fig">3</span><span class="cap">ways a ticket is created — SRS cannot tell them apart</span></div>
       <div class="metric"><span class="fig">4</span><span class="cap">systems of record per ticket, no single source of truth</span></div>
-      <div class="metric"><span class="fig">12</span><span class="cap">anomalies logged, 3 customer-facing today</span></div>
+      <div class="metric"><span class="fig">11</span><span class="cap">anomalies logged, 2 customer-facing today</span></div>
     </div>
 
     <nav class="toc">
@@ -336,7 +336,7 @@
 
         <rect x="600" y="24" width="230" height="46" rx="6" fill="var(--crit-wash)" stroke="var(--crit)" stroke-width="1.2" stroke-dasharray="3 3"/>
         <text x="715" y="42" text-anchor="middle" font-size="10" font-weight="700" fill="var(--crit)">Closure made in Kapture</text>
-        <text x="715" y="57" text-anchor="middle" font-size="9" fill="var(--crit)">never reaches SRS or TAS — A-08</text>
+        <text x="715" y="57" text-anchor="middle" font-size="9" fill="var(--crit)">never reaches SRS or TAS — A-07</text>
         <path d="M554 47 L596 47" stroke="var(--crit)" stroke-width="1.3" stroke-dasharray="2 3" fill="none" marker-end="url(#ard)"/>
 
         <rect x="330" y="112" width="230" height="52" rx="7" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.6"/>
@@ -435,7 +435,7 @@
       <ul class="tight">
         <li>SRS signals Quality OS → CSP score, bonus, routing exposure</li>
         <li><b>The resolution does reach Kapture.</b> Ticket Service Java receives it, fetches live Kapture state and writes back the matching sub-status</li>
-        <li>What does <b>not</b> flow is the reverse — a closure made in Kapture never reaches SRS or TAS (A-08)</li>
+        <li>What does <b>not</b> flow is the reverse — a closure made in Kapture never reaches SRS or TAS (A-07)</li>
         <li>Reopen reuses the lineage, triggered from Kapture or the customer app; both route through Ticket Service Java</li>
       </ul>
     </div>
@@ -451,7 +451,7 @@
     </p>
 
     <div class="sev-group">
-      <div class="sev-head sev-crit"><span class="pip"></span>Critical<span class="cnt">3</span></div>
+      <div class="sev-head sev-crit"><span class="pip"></span>Critical<span class="cnt">2</span></div>
 
       <div class="anom"><div class="anom-id">A-01</div><div>
         <h4>One ticket can become two complaints</h4>
@@ -472,21 +472,12 @@
         <p class="ev">F-01</p>
       </div></div>
 
-      <div class="anom"><div class="anom-id">A-03</div><div>
-        <h4>One CSP action silently does nothing</h4>
-        <ul class="tight">
-          <li>Offered on every in-progress card, it calls an SRS endpoint that does not exist — and the 404 is swallowed <b>after</b> the card has already moved to "awaiting verification"</li>
-          <li>The customer is never asked to verify, and the CSP is left with a card carrying <b>zero available actions</b></li>
-          <li><b>Effect:</b> the ticket can now only move via SRS's escalation path — resolved late, by someone else, rather than by the CSP who was working it</li>
-        </ul>
-        <p class="ev">F-02</p>
-      </div></div>
     </div>
 
     <div class="sev-group">
       <div class="sev-head sev-struct"><span class="pip"></span>Structural<span class="cnt">9</span></div>
 
-      <div class="anom"><div class="anom-id">A-04</div><div>
+      <div class="anom"><div class="anom-id">A-03</div><div>
         <h4>No single source of truth for a ticket</h4>
         <ul class="tight">
           <li>One contact produces <b>four</b> IDs — Kapture ticket, Ticket Service Java ticket, SRS complaint, TAS candidate — each in its own store</li>
@@ -495,7 +486,7 @@
         </ul>
       </div></div>
 
-      <div class="anom"><div class="anom-id">A-05</div><div>
+      <div class="anom"><div class="anom-id">A-04</div><div>
         <h4>Two systems compute TAT independently</h4>
         <ul class="tight">
           <li>SRS owns per-subtype deadlines on a working/calendar clock; Ticket Service Java runs a second mechanism on plain calendar arithmetic</li>
@@ -504,7 +495,7 @@
         </ul>
       </div></div>
 
-      <div class="anom"><div class="anom-id">A-06</div><div>
+      <div class="anom"><div class="anom-id">A-05</div><div>
         <h4>No clear governing body</h4>
         <ul class="tight">
           <li>SRS is "the OS" but does not control its own intake eligibility — Ticket Service Java decides who reaches it, and owns priority and queue outright</li>
@@ -513,7 +504,7 @@
         <p class="ev">F-04, F-06</p>
       </div></div>
 
-      <div class="anom"><div class="anom-id">A-07</div><div>
+      <div class="anom"><div class="anom-id">A-06</div><div>
         <h4>Kapture edits after creation are dropped</h4>
         <ul class="tight">
           <li>Type, title and priority changes never reach SRS — none of the three even calls the SRS client</li>
@@ -522,7 +513,7 @@
         <p class="ev">F-15</p>
       </div></div>
 
-      <div class="anom"><div class="anom-id">A-08</div><div>
+      <div class="anom"><div class="anom-id">A-07</div><div>
         <h4>Closure syncs one way only</h4>
         <ul class="tight">
           <li><b>CSP resolves → Kapture updates: this works.</b> Ticket Service Java has two intake paths (an HTTP endpoint whose payload mirrors SRS's resolution event, and a queue handler) — both fetch live Kapture state and write the right sub-status back</li>
@@ -533,18 +524,18 @@
         <p class="ev">TicketController.ResolveTicket · TicketQueueListener.handleResolveTicket · SrsClient.java</p>
       </div></div>
 
-      <div class="anom"><div class="anom-id">A-09</div><div>
+      <div class="anom"><div class="anom-id">A-08</div><div>
         <h4>The three parties cannot see each other</h4>
         <ul class="tight">
           <li><b>Agent → ticket:</b> on a callback the agent sees no status and no CSP progress, and cannot reach the partner</li>
           <li><b>CSP → customer:</b> no idea how many times this customer has already chased</li>
           <li><b>Agent → CSP:</b> availability, severity and fault clues learned on the call never reach the person fixing it</li>
           <li><b>Ticket → customer:</b> the app shows no live status, so calling is the only way to find out</li>
-          <li><b>Effect:</b> the agent's entire surface is three actions — create a ticket, add a comment, occasionally mark resolve. <b>Two of the three go nowhere:</b> the comment reaches no one, and the resolve never leaves Kapture (A-08)</li>
+          <li><b>Effect:</b> the agent's entire surface is three actions — create a ticket, add a comment, occasionally mark resolve. <b>Two of the three go nowhere:</b> the comment reaches no one, and the resolve never leaves Kapture (A-07)</li>
         </ul>
       </div></div>
 
-      <div class="anom"><div class="anom-id">A-10</div><div>
+      <div class="anom"><div class="anom-id">A-09</div><div>
         <h4>The same ticket is classified twice, in two vocabularies</h4>
         <ul class="tight">
           <li>The agent picks a Ticket Type from Kapture's fixed dropdown — and that single choice decides the <b>queue</b>, i.e. who works the ticket</li>
@@ -555,7 +546,7 @@
         <p class="ev">KaptureProblemMapper · PRIMARY_CLASS_TO_EXECUTOR</p>
       </div></div>
 
-      <div class="anom"><div class="anom-id">A-11</div><div>
+      <div class="anom"><div class="anom-id">A-10</div><div>
         <h4>Kapture is a system of record whose distinctive data never leaves it</h4>
         <ul class="tight">
           <li>Kapture holds its own ticket, and Ticket Service Java holds a <b>separate</b> record with its own id plus a pointer back — two stores before SRS has even been called</li>
@@ -566,7 +557,7 @@
         <p class="ev">TicketEntity: <code>ticket_id</code> + <code>kapture_ticket_id</code> · SRS: zero occurrences of priority/queue</p>
       </div></div>
 
-      <div class="anom"><div class="anom-id">A-12</div><div>
+      <div class="anom"><div class="anom-id">A-11</div><div>
         <h4>TAS emits far more than SRS is listening for</h4>
         <ul class="tight">
           <li>TAS publishes <b>15</b> restore event types; SRS exposes endpoints for <b>4</b> of them</li>
@@ -650,32 +641,32 @@
       <div class="rm-row">
         <span class="name">Agent → ticket</span>
         <span class="why">The agent on a callback is blind — no view of state, no idea what the CSP is doing, and no way to reach the partner. Give them the status before they have to apologise for not having it.</span>
-        <span class="ref">A-09</span>
+        <span class="ref">A-08</span>
       </div>
       <div class="rm-row">
         <span class="name">CSP → customer</span>
         <span class="why">The CSP does not know a customer has chased three times. That count is one of the strongest urgency signals we hold, and it stops at Kapture.</span>
-        <span class="ref">A-09</span>
+        <span class="ref">A-08</span>
       </div>
       <div class="rm-row">
         <span class="name">Agent → CSP</span>
         <span class="why">Availability, severity and fault clues learned on the call would help the CSP fix it faster. None of it travels today.</span>
-        <span class="ref">A-09</span>
+        <span class="ref">A-08</span>
       </div>
       <div class="rm-row">
         <span class="name">Ticket → customer</span>
         <span class="why">The app shows no live status, so calling is the only way to find out — the very loop we are trying to break.</span>
-        <span class="ref">A-09</span>
+        <span class="ref">A-08</span>
       </div>
       <div class="rm-row">
         <span class="name">Kapture edits after creation are dropped</span>
         <span class="why">Type, title and priority changes made after creation never reach SRS — none of the three even calls the SRS client.</span>
-        <span class="ref">A-07</span>
+        <span class="ref">A-06</span>
       </div>
       <div class="rm-row">
         <span class="name">Closure syncs one way only</span>
         <span class="why">CSP resolution reaches Kapture correctly. The reverse does not — a closure made in Kapture leaves the ticket open on the CSP's card with its clock running.</span>
-        <span class="ref">A-08</span>
+        <span class="ref">A-07</span>
       </div>
       <div class="rm-row">
         <span class="name">One ticket can become two complaints</span>
@@ -685,7 +676,7 @@
       <div class="rm-row">
         <span class="name">TAS emits far more than SRS is listening for</span>
         <span class="why">TAS publishes 15 restore event types; SRS exposes endpoints for 4. Technician assignment is the clearest loss — the authority on the complaint never learns who is actually doing the work.</span>
-        <span class="ref">A-12</span>
+        <span class="ref">A-11</span>
       </div>
       <div class="rm-row">
         <span class="name">Platform takeover — verify what is wired</span>
@@ -706,14 +697,9 @@
         <span class="ref">A-02</span>
       </div>
       <div class="rm-row">
-        <span class="name">One CSP action silently does nothing</span>
-        <span class="why">Half-built already — the CSP action and TAS state both exist; only the SRS endpoint is missing. Building it delivers the customer handshake and stops the card going dead in the CSP's hands.</span>
-        <span class="ref">A-03</span>
-      </div>
-      <div class="rm-row">
         <span class="name">A reopen should arrive as a reopen</span>
         <span class="why">Today the CSP receives what looks like a fresh ticket and works it from scratch, instead of seeing that this customer, this fault, was already attempted.</span>
-        <span class="ref">A-09</span>
+        <span class="ref">A-08</span>
       </div>
       <div class="rm-row">
         <span class="name">Ping-data verification</span>
@@ -737,27 +723,27 @@
       <div class="rm-row">
         <span class="name">Two systems compute TAT independently</span>
         <span class="why">SRS computes per-subtype on a working/calendar clock; Ticket Service Java computes three flat calendar buckets. The customer is told one number and the CSP is judged on another.</span>
-        <span class="ref">A-05</span>
+        <span class="ref">A-04</span>
       </div>
       <div class="rm-row">
         <span class="name">No single source of truth for a ticket</span>
         <span class="why">One contact produces four IDs across four stores, and Ticket → Complaint is legitimately 1:many. "How many tickets" has no single answer today.</span>
-        <span class="ref">A-04</span>
+        <span class="ref">A-03</span>
       </div>
       <div class="rm-row">
         <span class="name">No clear governing body</span>
         <span class="why">A real RACI across Kapture, Ticket Service, SRS and TAS. SRS is called the OS but does not control its own intake eligibility.</span>
-        <span class="ref">A-06</span>
+        <span class="ref">A-05</span>
       </div>
       <div class="rm-row">
         <span class="name">The same ticket is classified twice, in two vocabularies</span>
         <span class="why">Kapture's dropdown decides the queue; SRS independently re-derives class and executor from the same string. One of the two should be authoritative — today both are, and they are aligned by hand across three places.</span>
-        <span class="ref">A-10</span>
+        <span class="ref">A-09</span>
       </div>
       <div class="rm-row">
         <span class="name">Kapture is a system of record whose distinctive data never leaves it</span>
         <span class="why">Decide what Kapture is actually for. If queue, priority and agent comments are operationally useful, they need to travel; if they are not, we are maintaining a front door that captures data nobody downstream can act on.</span>
-        <span class="ref">A-11</span>
+        <span class="ref">A-10</span>
       </div>
     </div>
 
@@ -771,7 +757,7 @@
       <div class="rm-row">
         <span class="name">Record the TAT breach</span>
         <span class="why">Ticket Service Java fires a breach notification and stores nothing — its <code>is_sla_breach</code> field is only ever set false. Breaches on that side are currently uncountable.</span>
-        <span class="ref">A-05</span>
+        <span class="ref">A-04</span>
       </div>
       <div class="rm-row">
         <span class="name">Make duplicates identifiable</span>
