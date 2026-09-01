@@ -243,7 +243,7 @@
       <div class="metric"><span class="fig">0</span><span class="cap">proactive paths — every ticket starts with the customer</span></div>
       <div class="metric"><span class="fig">3</span><span class="cap">ways a ticket is created, all funnelling through one relay</span></div>
       <div class="metric"><span class="fig">4</span><span class="cap">systems of record per ticket, no single source of truth</span></div>
-      <div class="metric"><span class="fig">11</span><span class="cap">anomalies logged, 2 customer-facing today</span></div>
+      <div class="metric"><span class="fig">10</span><span class="cap">anomalies logged, 2 customer-facing today</span></div>
     </div>
 
     <nav class="toc">
@@ -507,7 +507,7 @@
     </div>
 
     <div class="sev-group">
-      <div class="sev-head sev-struct"><span class="pip"></span>Structural<span class="cnt">9</span></div>
+      <div class="sev-head sev-struct"><span class="pip"></span>Structural<span class="cnt">8</span></div>
 
       <div class="anom"><div class="anom-id">A-03</div><div>
         <h4>No single source of truth for a ticket</h4>
@@ -567,11 +567,14 @@
         <ul class="tight">
           <li>SRS is "the OS" but does not control its own intake eligibility — Ticket Service Java decides who reaches it, and owns priority and queue outright</li>
           <li>SRS carries orphaned callback endpoints from an async design that was never wired</li>
+          <li><b>Nobody owns the ticket-type boundary.</b> Adding a type needs coordinated edits in three places — Kapture's dropdown, SRS's hardcoded map, SRS's registry table — and a miss is silent: the ticket is rejected or redirected with no alert. <b>Two dispositions are in that state right now</b> — Ticket Service Java accepts <code>INTERNET ISSUES|POWER OUT OF RANGE</code> and <code>INTERNET ISSUES|OTHERS</code>, and SRS's mapper has neither</li>
         </ul>
-        <p class="ev">F-04, F-06</p>
+        <p class="ev">F-04, F-06 · KaptureProblemMapper</p>
         <p class="mtr"><span class="none">Not tracked, and not directly measurable.</span> The
         symptom shows up indirectly — every cross-system match rate on the Health tab exists
-        because no single service owns the answer.</p>
+        because no single service owns the answer. And a disposition SRS cannot map is invisible
+        to the very metric meant to catch it: Match Rate <b>by ticket type</b> is computed over
+        the five subtypes SRS already knows.</p>
       </div></div>
 
       <div class="anom"><div class="anom-id">A-06</div><div>
@@ -619,24 +622,6 @@
       </div></div>
 
       <div class="anom"><div class="anom-id">A-09</div><div>
-        <h4>The same ticket is classified twice, in two vocabularies</h4>
-        <ul class="tight">
-          <li>The agent picks a Ticket Type from Kapture's fixed dropdown — and that single choice decides the <b>queue</b>, i.e. who works the ticket</li>
-          <li>SRS then re-parses the same string through its own mapping to derive class, subtype, SLA and executor — reaching the routing decision independently</li>
-          <li>The two vocabularies are kept aligned <b>by hand</b>, across three places: Kapture's dropdown, SRS's hardcoded map, and SRS's registry table</li>
-          <li><b>Effect:</b> a disposition Kapture happily accepts can be one SRS has never heard of — rejected outright, or silently redirected, depending on a feature flag</li>
-        </ul>
-        <p class="ev">KaptureProblemMapper · PRIMARY_CLASS_TO_EXECUTOR</p>
-        <p class="mtr"><b>They are already out of sync.</b> Ticket Service Java accepts
-        <code>INTERNET ISSUES|POWER OUT OF RANGE</code> and <code>INTERNET ISSUES|OTHERS</code>;
-        <span class="gap">SRS's mapper has neither</span> — those tickets are rejected or silently
-        redirected. Health → Match Rate <b>by ticket type</b> reads
-        <span class="live">99.5–100%</span> only because it is measured over the five subtypes SRS
-        <i>does</i> know. <span class="none">A disposition SRS cannot map is invisible to the very
-        metric meant to catch it.</span></p>
-      </div></div>
-
-      <div class="anom"><div class="anom-id">A-10</div><div>
         <h4>Kapture is a system of record whose distinctive data never leaves it</h4>
         <ul class="tight">
           <li>Kapture holds its own ticket, and Ticket Service Java holds a <b>separate</b> record with its own id plus a pointer back — two stores before SRS has even been called</li>
@@ -651,7 +636,7 @@
         Kapture's reach anyone.</p>
       </div></div>
 
-      <div class="anom"><div class="anom-id">A-11</div><div>
+      <div class="anom"><div class="anom-id">A-10</div><div>
         <h4>TAS emits far more than SRS is listening for</h4>
         <ul class="tight">
           <li>TAS publishes <b>15</b> restore event types; SRS exposes endpoints for <b>4</b> of them</li>
@@ -773,7 +758,7 @@
       <div class="rm-row">
         <span class="name">TAS emits far more than SRS is listening for</span>
         <span class="why">TAS publishes 15 restore event types; SRS exposes endpoints for 4. Technician assignment is the clearest loss — the authority on the complaint never learns who is actually doing the work.</span>
-        <span class="ref">A-11</span>
+        <span class="ref">A-10</span>
       </div>
       <div class="rm-row">
         <span class="name">Platform takeover — verify what is wired</span>
@@ -835,26 +820,21 @@
         <span class="ref">A-05</span>
       </div>
       <div class="rm-row">
-        <span class="name">The same ticket is classified twice, in two vocabularies</span>
-        <span class="why">Kapture's dropdown decides the queue; SRS independently re-derives class and executor from the same string. One of the two should be authoritative — today both are, and they are aligned by hand across three places.</span>
-        <span class="ref">A-09</span>
-      </div>
-      <div class="rm-row">
         <span class="name">Kapture is a system of record whose distinctive data never leaves it</span>
         <span class="why">Decide what Kapture is actually for. If queue, priority and agent comments are operationally useful, they need to travel; if they are not, we are maintaining a front door that captures data nobody downstream can act on.</span>
-        <span class="ref">A-10</span>
+        <span class="ref">A-09</span>
       </div>
       <div class="rm-row">
         <span class="name">A responsibility charter per service</span>
         <span class="why">Write down what each of the four services owns — and where two own the same thing, pick one and <b>delete</b> the other rather than reconciling them. TAT is the test case: SRS owns the deadline, so Ticket Service Java's second clock should be removed, not synced. Same question for classification, queue and priority.
-        <span class="mtr">The cheap, high-leverage half of this bucket. It is a decision, not a build — and it settles A-03 through A-10 in one document rather than five fixes.</span></span>
+        <span class="mtr">The cheap, high-leverage half of this bucket. It is a decision, not a build — and it settles A-03 through A-09 in one document rather than five fixes.</span></span>
         <span class="ref">decision</span>
       </div>
       <div class="rm-row">
         <span class="name">Replace Kapture with an in-house agent tool</span>
         <span class="why">An internal CRM writing straight to our own tables would remove Kapture's separate database, the webhook sync, and the second classification vocabulary at the root — collapsing several anomalies rather than patching them.
         <span class="mtr"><b>Big change, lowest ROI — stated deliberately.</b> It takes us from four stores to three, not to one: Ticket Service Java, SRS and TAS all remain. And every anomaly it resolves can be resolved far more cheaply by forwarding data properly. Worth holding as the answer to "why do we keep paying this tax?" — not as near-term work.</span></span>
-        <span class="ref">A-03 · A-09 · A-10</span>
+        <span class="ref">A-03 · A-09 · A-09</span>
       </div>
     </div>
 
