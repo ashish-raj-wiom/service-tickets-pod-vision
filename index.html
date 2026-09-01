@@ -405,62 +405,6 @@
       </table>
     </div>
 
-    <h3>What propagates where</h3>
-    <p class="sec-sub" style="margin-top:-4px">
-      Every action anyone can take, and which systems learn about it. <b>The red cells are the
-      broken linkages</b> — each one is an anomaly in Section 03.
-    </p>
-    <div class="tbl-wrap" style="margin-bottom:0">
-      <table class="matrix">
-        <tr>
-          <th class="lead">Actor &amp; action</th>
-          <th>Kapture</th><th>Ticket Svc</th><th>SRS</th><th>TAS</th><th>Cust App</th><th>CSP App</th>
-        </tr>
-        <tr>
-          <td class="lead"><span class="who">CC agent · Kapture</span><span class="act">Create ticket</span></td>
-          <td class="org">origin</td><td class="yes">Yes</td><td class="yes">Yes*</td><td class="yes">Yes*</td><td class="yes">Yes</td><td class="yes">Yes*</td>
-        </tr>
-        <tr>
-          <td class="lead"><span class="who">CC agent · Kapture</span><span class="act">Update type / priority</span></td>
-          <td class="org">origin</td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="yes">Yes</td><td class="no">No</td>
-        </tr>
-        <tr>
-          <td class="lead"><span class="who">CC agent · Kapture</span><span class="act">Add comment</span></td>
-          <td class="org">origin</td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="unk">?</td><td class="no">No</td>
-        </tr>
-        <tr>
-          <td class="lead"><span class="who">CC agent · Kapture</span><span class="act">Mark resolved</span></td>
-          <td class="org">origin</td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="yes">Yes</td><td class="no">No</td>
-        </tr>
-        <tr>
-          <td class="lead"><span class="who">CC agent · Kapture</span><span class="act">Reopen ticket</span></td>
-          <td class="org">origin</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td>
-        </tr>
-        <tr>
-          <td class="lead"><span class="who">Customer · Customer app</span><span class="act">Raise via chat</span></td>
-          <td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="org">origin</td><td class="yes">Yes</td>
-        </tr>
-        <tr>
-          <td class="lead"><span class="who">Customer · phone</span><span class="act">Calls again on an open ticket</span></td>
-          <td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td>
-        </tr>
-        <tr>
-          <td class="lead"><span class="who">CSP · CSP app</span><span class="act">Assign technician</span></td>
-          <td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="org">origin</td><td class="unk">?</td><td class="yes">Yes</td>
-        </tr>
-        <tr>
-          <td class="lead"><span class="who">CSP · CSP app</span><span class="act">Resolve ticket</span></td>
-          <td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="org">origin</td><td class="yes">Yes</td><td class="yes">Yes</td>
-        </tr>
-      </table>
-    </div>
-    <div class="matrix-legend">
-      <span><b class="yes">Yes</b>&nbsp; the system learns about it</span>
-      <span><b class="no">No</b>&nbsp; it does not</span>
-      <span><b class="unk">?</b>&nbsp; not verified</span>
-      <span><b>Yes*</b>&nbsp; only for the Partner queue and an eligible ticket type</span>
-    </div>
-
     <h3>The four phases</h3>
     <div class="phase">
       <div><span class="n">Phase 1</span><span class="t">Creation</span></div>
@@ -638,18 +582,69 @@
   <section id="roadmap">
     <div class="sec-head"><span class="sec-num">04</span><h2>Roadmap</h2></div>
     <p class="sec-sub">
-      Seven areas, each tagged with the objective it serves. Item names match the anomaly they
-      resolve, so this section reads directly against Section 03. <b>01–04 are repair</b> —
-      fixing a reported path that is broken today. <b>06–07 are new capability.</b> 05 sits
+      Six areas, each tagged with the objective it serves. Item names match the anomaly they
+      resolve, so this section reads directly against Section 03. <b>01–03 are repair</b> —
+      fixing a reported path that is broken today. <b>05–06 are new capability.</b> 04 sits
       between them because without measurement we cannot show any of it worked.
     </p>
 
     <div class="rm-block">
       <div class="rm-block-head">
         <div class="hd"><span class="rm-num">01</span><h3>Information flow</h3><span class="otag">O2</span></div>
-        <p><b>Completely broken today.</b> Once a ticket exists, none of the parties on it can see
-        what the others are doing. A-09 alone accounts for four separate blind spots, which is why
-        it is broken out by direction below.</p>
+        <p><b>The largest area, and completely broken today.</b> Every item here is the same root
+        cause — data exists in one system and never reaches the person or service that needs it.
+        The matrix below is the evidence: every red cell is one of these gaps.</p>
+      </div>
+
+      <div class="tbl-wrap" style="margin: 4px 0 0">
+        <table class="matrix">
+          <tr>
+            <th class="lead">Actor &amp; action</th>
+            <th>Kapture</th><th>Ticket Svc</th><th>SRS</th><th>TAS</th><th>Cust App</th><th>CSP App</th>
+          </tr>
+          <tr>
+            <td class="lead"><span class="who">CC agent · Kapture</span><span class="act">Create ticket</span></td>
+            <td class="org">origin</td><td class="yes">Yes</td><td class="yes">Yes*</td><td class="yes">Yes*</td><td class="yes">Yes</td><td class="yes">Yes*</td>
+          </tr>
+          <tr>
+            <td class="lead"><span class="who">CC agent · Kapture</span><span class="act">Update type / priority</span></td>
+            <td class="org">origin</td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="yes">Yes</td><td class="no">No</td>
+          </tr>
+          <tr>
+            <td class="lead"><span class="who">CC agent · Kapture</span><span class="act">Add comment</span></td>
+            <td class="org">origin</td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="unk">?</td><td class="no">No</td>
+          </tr>
+          <tr>
+            <td class="lead"><span class="who">CC agent · Kapture</span><span class="act">Mark resolved</span></td>
+            <td class="org">origin</td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="yes">Yes</td><td class="no">No</td>
+          </tr>
+          <tr>
+            <td class="lead"><span class="who">CC agent · Kapture</span><span class="act">Reopen ticket</span></td>
+            <td class="org">origin</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td>
+          </tr>
+          <tr>
+            <td class="lead"><span class="who">Customer · Customer app</span><span class="act">Raise via chat</span></td>
+            <td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="org">origin</td><td class="yes">Yes</td>
+          </tr>
+          <tr>
+            <td class="lead"><span class="who">Customer · phone</span><span class="act">Calls again on an open ticket</span></td>
+            <td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td>
+          </tr>
+          <tr>
+            <td class="lead"><span class="who">CSP · CSP app</span><span class="act">Assign technician</span></td>
+            <td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="org">origin</td><td class="unk">?</td><td class="yes">Yes</td>
+          </tr>
+          <tr>
+            <td class="lead"><span class="who">CSP · CSP app</span><span class="act">Resolve ticket</span></td>
+            <td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="org">origin</td><td class="yes">Yes</td><td class="yes">Yes</td>
+          </tr>
+        </table>
+      </div>
+      <div class="matrix-legend">
+        <span><b class="yes">Yes</b>&nbsp; the system learns about it</span>
+        <span><b class="no">No</b>&nbsp; it does not</span>
+        <span><b class="unk">?</b>&nbsp; not verified</span>
+        <span><b>Yes*</b>&nbsp; only for the Partner queue and an eligible ticket type</span>
       </div>
 
       <div class="rm-row">
@@ -672,8 +667,32 @@
         <span class="why">The app shows no live status, so calling is the only way to find out — the very loop we are trying to break.</span>
         <span class="ref">A-09</span>
       </div>
+      <div class="rm-row">
+        <span class="name">Kapture edits after creation are dropped</span>
+        <span class="why">Type, title and priority changes made after creation never reach SRS — none of the three even calls the SRS client.</span>
+        <span class="ref">A-07</span>
+      </div>
+      <div class="rm-row">
+        <span class="name">Closure syncs one way only</span>
+        <span class="why">CSP resolution reaches Kapture correctly. The reverse does not — a closure made in Kapture leaves the ticket open on the CSP's card with its clock running.</span>
+        <span class="ref">A-08</span>
+      </div>
+      <div class="rm-row">
+        <span class="name">One ticket can become two complaints</span>
+        <span class="why">No idempotency key on create, and the reopen key SRS receives is discarded. An ordinary queue move fires a second, unlineaged complaint that Quality then counts twice.</span>
+        <span class="ref">A-01</span>
+      </div>
+      <div class="rm-row">
+        <span class="name">TAS emits far more than SRS is listening for</span>
+        <span class="why">TAS publishes 15 restore event types; SRS exposes endpoints for 4. Technician assignment is the clearest loss — the authority on the complaint never learns who is actually doing the work.</span>
+        <span class="ref">A-12</span>
+      </div>
+      <div class="rm-row">
+        <span class="name">Platform takeover — verify what is wired</span>
+        <span class="why">Not greenfield: SRS emits the events, TAS consumes them, and a reason code exists. The work is confirming what actually fires in production and what is missing.</span>
+        <span class="ref">verify</span>
+      </div>
     </div>
-
     <div class="rm-block">
       <div class="rm-block-head">
         <div class="hd"><span class="rm-num">02</span><h3>Reopen, false resolution &amp; verification</h3><span class="otag">O2</span></div>
@@ -744,36 +763,7 @@
 
     <div class="rm-block">
       <div class="rm-block-head">
-        <div class="hd"><span class="rm-num">04</span><h3>Broken linkages</h3><span class="otag">O2</span></div>
-        <p>Data that should move between systems and does not. Each one is a concrete, bounded fix
-        rather than a redesign.</p>
-      </div>
-
-      <div class="rm-row">
-        <span class="name">Kapture edits after creation are dropped</span>
-        <span class="why">Type, title and priority changes made after creation never reach SRS — none of the three even calls the SRS client.</span>
-        <span class="ref">A-07</span>
-      </div>
-      <div class="rm-row">
-        <span class="name">Closure syncs one way only</span>
-        <span class="why">CSP resolution reaches Kapture correctly. The reverse does not — a closure made in Kapture leaves the ticket open on the CSP's card with its clock running.</span>
-        <span class="ref">A-08</span>
-      </div>
-      <div class="rm-row">
-        <span class="name">One ticket can become two complaints</span>
-        <span class="why">No idempotency key on create, and the reopen key SRS receives is discarded. An ordinary queue move fires a second, unlineaged complaint that Quality then counts twice.</span>
-        <span class="ref">A-01</span>
-      </div>
-      <div class="rm-row">
-        <span class="name">Platform takeover — verify what is wired</span>
-        <span class="why">Not greenfield: SRS emits the events, TAS consumes them, and a reason code exists. The work is confirming what actually fires in production and what is missing.</span>
-        <span class="ref">verify</span>
-      </div>
-    </div>
-
-    <div class="rm-block">
-      <div class="rm-block-head">
-        <div class="hd"><span class="rm-num">05</span><h3>Measurement</h3><span class="otag">gates both</span></div>
+        <div class="hd"><span class="rm-num">04</span><h3>Measurement</h3><span class="otag">gates both</span></div>
         <p>The objective carries explicit measures. Several cannot be computed today — this has to
         land early or nothing above can be shown to have worked.</p>
       </div>
@@ -797,7 +787,7 @@
 
     <div class="rm-block">
       <div class="rm-block-head">
-        <div class="hd"><span class="rm-num">06</span><h3>Proactive detection &amp; comms</h3><span class="otag">O1</span></div>
+        <div class="hd"><span class="rm-num">05</span><h3>Proactive detection &amp; comms</h3><span class="otag">O1</span></div>
         <p>New capability, not repair. Nothing in the system today looks for a problem before the
         customer reports one — this is the whole of O1, and it is worth building on a path we can
         already trust.</p>
@@ -822,7 +812,7 @@
 
     <div class="rm-block">
       <div class="rm-block-head">
-        <div class="hd"><span class="rm-num">07</span><h3>Outage handling</h3><span class="otag">O1</span></div>
+        <div class="hd"><span class="rm-num">06</span><h3>Outage handling</h3><span class="otag">O1</span></div>
         <p>Outages and service tickets are unlinked today. At scale this is where detection either
         pays off or buries the CSP.</p>
       </div>
