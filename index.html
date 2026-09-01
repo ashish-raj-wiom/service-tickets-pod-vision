@@ -242,7 +242,7 @@
     <div class="metrics">
       <div class="metric"><span class="fig">0</span><span class="cap">proactive paths — every ticket starts with the customer</span></div>
       <div class="metric"><span class="fig">3</span><span class="cap">ways a ticket is created, all funnelling through one relay</span></div>
-      <div class="metric"><span class="fig">4</span><span class="cap">systems of record per ticket, no single source of truth</span></div>
+      <div class="metric"><span class="fig">4</span><span class="cap">systems of record per ticket, four status vocabularies</span></div>
       <div class="metric"><span class="fig">10</span><span class="cap">anomalies logged, 2 customer-facing today</span></div>
     </div>
 
@@ -510,12 +510,18 @@
       <div class="sev-head sev-struct"><span class="pip"></span>Structural<span class="cnt">8</span></div>
 
       <div class="anom"><div class="anom-id">A-03</div><div>
-        <h4>No single source of truth for a ticket</h4>
+        <h4>No reliable source of truth for a ticket</h4>
         <ul class="tight">
-          <li>One contact produces <b>four</b> IDs — Kapture ticket, Ticket Service Java ticket, SRS complaint, TAS candidate — each in its own store</li>
-          <li>Ticket → Complaint is legitimately 1:many because of reopens, so the chain is not even uniformly 1:1</li>
-          <li><b>Effect:</b> "what is the status of this ticket" has four possible answers</li>
+          <li><b>"What counts as the ticket?" has no agreed answer</b> — the Kapture record, the Ticket Service record, the SRS complaint, or the TAS candidate. Four stores, four IDs, and Ticket → Complaint is legitimately 1:many because of reopens</li>
+          <li><b>Services holding their own IDs is fine. Showing them to people is not.</b> The customer is given Ticket Service Java's id; the CSP works a TAS candidate. Two humans discussing one problem cannot quote a number the other recognises</li>
+          <li><b>Status is worse — four vocabularies with no shared word.</b> Ticket Service Java has 3 states, SRS has 10, TAS has 7, Kapture its own. TAS's <code>COMPLETED</code>, SRS's <code>RESOLVED</code> and Ticket Service's <code>RESOLVED</code> are the same real-world moment under three names</li>
+          <li><b>And <code>CLOSED</code> is the trap:</b> it exists in both Ticket Service Java and SRS and means different things — in SRS it means the Quality signal was delivered. Same word, different meaning, which is more dangerous than a different word</li>
+          <li><b>Effect:</b> nobody can state a ticket's id or status without first naming which system they mean</li>
         </ul>
+        <p class="mtr" style="background:var(--future-wash)"><b>What "fixed" looks like.</b> Services
+        keep their internal state machines — that is normal. What is missing is <b>one public
+        reference</b>: a single id and a single status vocabulary that every human-facing surface
+        renders, with each service mapping its internal state onto it.</p>
         <p class="mtr"><b>Tracked as a symptom.</b> Health → <b>Ticket Close Match %</b>
         (<span class="live">99.3%</span>) and the Raw closure counts exist precisely <i>because</i>
         the four stores can disagree. That reconciliation work is the cost of this anomaly —
@@ -810,8 +816,9 @@
         <span class="ref">A-04</span>
       </div>
       <div class="rm-row">
-        <span class="name">No single source of truth for a ticket</span>
-        <span class="why">One contact produces four IDs across four stores, and Ticket → Complaint is legitimately 1:many. "How many tickets" has no single answer today.</span>
+        <span class="name">No reliable source of truth for a ticket</span>
+        <span class="why"><b>One public reference, rendered everywhere.</b> Agree what counts as "the ticket", then give it one id and one status vocabulary that the customer, the CSP and the agent all see. Services keep their internal states and map onto it.
+        <span class="mtr">Two people discussing one problem currently quote different numbers, and <code>CLOSED</code> means different things in two systems. This is a naming and contract decision before it is a build.</span></span>
         <span class="ref">A-03</span>
       </div>
       <div class="rm-row">
