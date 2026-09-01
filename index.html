@@ -222,13 +222,13 @@
     </p>
     <div class="byline">
       <span>Ashish Raj · PM, Service Tickets POD</span><span class="d">·</span>
-      <span>27 Aug 2026</span><span class="d">·</span>
+      <span>1 Sep 2026</span><span class="d">·</span>
       <span>Current-state claims verified against code</span>
     </div>
 
     <div class="metrics">
       <div class="metric"><span class="fig">0</span><span class="cap">proactive paths — every ticket starts with the customer</span></div>
-      <div class="metric"><span class="fig">3</span><span class="cap">ways a ticket is created — SRS cannot tell them apart</span></div>
+      <div class="metric"><span class="fig">3</span><span class="cap">ways a ticket is created, all funnelling through one relay</span></div>
       <div class="metric"><span class="fig">4</span><span class="cap">systems of record per ticket, no single source of truth</span></div>
       <div class="metric"><span class="fig">11</span><span class="cap">anomalies logged, 2 customer-facing today</span></div>
     </div>
@@ -434,7 +434,7 @@
     <div class="phase">
       <div><span class="n">Phase 3</span><span class="t">Resolution</span></div>
       <ul class="tight">
-        <li>Three CSP-initiated routes: verification-gated (splits into system and customer triggers), direct-resolve (three subtypes only), direct-unresolved (reason required)</li>
+        <li>Three CSP-initiated routes: verification-gated, direct-resolve (three subtypes only), direct-unresolved (reason required). A fourth action — trigger customer verification — is offered on the card but calls an SRS endpoint that does not exist</li>
         <li>The automated connectivity check is <b>advisory only</b> — the ticket closes either way</li>
         <li>SRS can also close with <b>no CSP action at all</b> — a committed device swap, or a verification timeout</li>
       </ul>
@@ -514,7 +514,8 @@
         <ul class="tight">
           <li>SRS owns per-subtype deadlines on a working/calendar clock; Ticket Service Java runs a second mechanism on plain calendar arithmetic</li>
           <li>Neither reads the other's deadline — verified in both directions, zero references</li>
-          <li><b>Effect:</b> the two clocks can disagree about whether the same ticket breached</li>
+          <li><b>They demonstrably do disagree, on the highest-volume subtype.</b> Both give NO_INTERNET a 4-hour deadline — but SRS counts <b>working</b> hours (11:00–21:00) and Ticket Service Java counts <b>calendar</b> hours. A ticket raised at 20:00 is breached at midnight by one and at 14:00 next day by the other: <span class="gap">14 hours apart</span></li>
+          <li><b>Effect:</b> the deadline the <b>customer</b> is told comes from Ticket Service Java; the one the <b>CSP is judged on</b> comes from SRS. Same ticket, two promises</li>
         </ul>
         <p class="mtr"><b>Half-tracked, and the half we track is the wrong one.</b> Health →
         <b>TAT Calculation Accuracy</b> (<span class="live">99.8%</span>) checks SRS's own SLA
@@ -569,7 +570,7 @@
           <li><b>CSP → customer:</b> no idea how many times this customer has already chased</li>
           <li><b>Agent → CSP:</b> availability, severity and fault clues learned on the call never reach the person fixing it</li>
           <li><b>Ticket → customer:</b> the app shows no live status, so calling is the only way to find out</li>
-          <li><b>Effect:</b> the agent's entire surface is three actions — create a ticket, add a comment, occasionally mark resolve. <b>Two of the three go nowhere:</b> the comment reaches no one, and the resolve never leaves Kapture (A-07)</li>
+          <li><b>Effect:</b> the agent's entire surface is three actions — create a ticket, add a comment, occasionally mark resolve. <b>Two of the three go nowhere:</b> the comment stops at Ticket Service Java and reaches nobody who can act on it, and the resolve never leaves Kapture (A-07)</li>
         </ul>
         <p class="mtr"><b>Partly tracked.</b> Health → <b>Service Ticket-PN Delivery Rate</b> is the
         only visibility metric we have, and it sits at <span class="gap">90.8%</span> — Raw shows
@@ -588,11 +589,13 @@
           <li><b>Effect:</b> a disposition Kapture happily accepts can be one SRS has never heard of — rejected outright, or silently redirected, depending on a feature flag</li>
         </ul>
         <p class="ev">KaptureProblemMapper · PRIMARY_CLASS_TO_EXECUTOR</p>
-        <p class="mtr"><b>The failure is tracked, the cause is not.</b> Health → Match Rate
-        <b>by ticket type</b> would drop for any disposition SRS cannot map — that is the alarm.
-        It currently reads <span class="live">99.5–100%</span> across all five internet subtypes,
-        so the two vocabularies are in sync <i>today</i>. <span class="none">Nothing warns you
-        when they drift; you find out from the match rate after the fact.</span></p>
+        <p class="mtr"><b>They are already out of sync.</b> Ticket Service Java accepts
+        <code>INTERNET ISSUES|POWER OUT OF RANGE</code> and <code>INTERNET ISSUES|OTHERS</code>;
+        <span class="gap">SRS's mapper has neither</span> — those tickets are rejected or silently
+        redirected. Health → Match Rate <b>by ticket type</b> reads
+        <span class="live">99.5–100%</span> only because it is measured over the five subtypes SRS
+        <i>does</i> know. <span class="none">A disposition SRS cannot map is invisible to the very
+        metric meant to catch it.</span></p>
       </div></div>
 
       <div class="anom"><div class="anom-id">A-10</div><div>
