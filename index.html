@@ -182,7 +182,7 @@
   .mtr .live { color: var(--good); font-weight: 650; }
   .mtr .gap { color: var(--crit); font-weight: 650; }
   .mtr .none { color: var(--slate); font-style: italic; }
-  .rm-row .why .mtr { margin-top: 7px; font-size: .78rem; }
+  .rm-row .why .mtr { display: block; margin-top: 9px; font-size: .78rem; }
 
   /* roadmap — linear rows, no cards */
   .rm-block { margin-bottom: 40px; }
@@ -774,9 +774,10 @@
 
     <div class="rm-block">
       <div class="rm-block-head">
-        <div class="hd"><span class="rm-num">03</span><h3>Definitions &amp; ownership</h3><span class="otag">O2</span></div>
-        <p>Nobody can agree on the number. Every service holds its own database, its own definitions,
-        and its own opinion of the same ticket.</p>
+        <div class="hd"><span class="rm-num">03</span><h3>Service boundaries — what each service owns, and what should exist at all</h3><span class="otag">O2</span></div>
+        <p>Four services hold their own copy of the same ticket and their own opinion of it. The
+        cheap half of this is deciding <b>who owns what</b>. The expensive half is asking whether
+        some of these services need to exist — worth stating, even where the answer is "not now".</p>
       </div>
 
       <div class="rm-row">
@@ -803,6 +804,18 @@
         <span class="name">Kapture is a system of record whose distinctive data never leaves it</span>
         <span class="why">Decide what Kapture is actually for. If queue, priority and agent comments are operationally useful, they need to travel; if they are not, we are maintaining a front door that captures data nobody downstream can act on.</span>
         <span class="ref">A-10</span>
+      </div>
+      <div class="rm-row">
+        <span class="name">A responsibility charter per service</span>
+        <span class="why">Write down what each of the four services owns — and where two own the same thing, pick one and <b>delete</b> the other rather than reconciling them. TAT is the test case: SRS owns the deadline, so Ticket Service Java's second clock should be removed, not synced. Same question for classification, queue and priority.
+        <span class="mtr">The cheap, high-leverage half of this bucket. It is a decision, not a build — and it settles A-03 through A-10 in one document rather than five fixes.</span></span>
+        <span class="ref">decision</span>
+      </div>
+      <div class="rm-row">
+        <span class="name">Replace Kapture with an in-house agent tool</span>
+        <span class="why">An internal CRM writing straight to our own tables would remove Kapture's separate database, the webhook sync, and the second classification vocabulary at the root — collapsing several anomalies rather than patching them.
+        <span class="mtr"><b>Big change, lowest ROI — stated deliberately.</b> It takes us from four stores to three, not to one: Ticket Service Java, SRS and TAS all remain. And every anomaly it resolves can be resolved far more cheaply by forwarding data properly. Worth holding as the answer to "why do we keep paying this tax?" — not as near-term work.</span></span>
+        <span class="ref">A-03 · A-09 · A-10</span>
       </div>
     </div>
 
