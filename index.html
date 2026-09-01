@@ -174,6 +174,15 @@
   .anom-id { font-family: var(--mono); font-size: 12px; color: var(--slate-light); padding-top: 2px; }
   .anom h4 { font-size: .99rem; margin-bottom: 7px; }
   .anom .ev { font-family: var(--mono); font-size: .72rem; color: var(--slate-light); margin-top: 8px; }
+  .mtr {
+    font-family: var(--sans); font-size: .8rem; margin-top: 9px; padding: 7px 11px;
+    background: var(--surface-alt); border-radius: 6px; color: var(--ink-soft); line-height: 1.45;
+  }
+  .mtr b { color: var(--ink); font-weight: 620; }
+  .mtr .live { color: var(--good); font-weight: 650; }
+  .mtr .gap { color: var(--crit); font-weight: 650; }
+  .mtr .none { color: var(--slate); font-style: italic; }
+  .rm-row .why .mtr { margin-top: 7px; font-size: .78rem; }
 
   /* roadmap — linear rows, no cards */
   .rm-block { margin-bottom: 40px; }
@@ -461,6 +470,10 @@
           <li><b>Effect:</b> two TAT clocks, and Quality OS counts the CSP's outcome twice</li>
         </ul>
         <p class="ev">F-14, F-10</p>
+        <p class="mtr"><b>Invisible today.</b> Health → Match Rate reads
+        <span class="live">99.9%</span>, but it counts <i>distinct ticket ids</i>, so a ticket that
+        produced two complaints still matches. <span class="none">No metric counts complaints per
+        ticket — the duplicate is structurally unmeasurable with what we track.</span></p>
       </div></div>
 
       <div class="anom"><div class="anom-id">A-02</div><div>
@@ -470,6 +483,12 @@
           <li><b>Effect:</b> "verified" in our data does not mean verified</li>
         </ul>
         <p class="ev">F-01</p>
+        <p class="mtr"><b>The metric that would catch this does not exist.</b> A false resolution
+        surfaces as a customer reopening — but the only reopen metric we have is <b>Reopen Ticket
+        (SRS-TAS) Match Rate</b>, which measures whether TAS <i>kept up</i> with SRS, not how many
+        reopens happened. It reads <span class="live">100%</span> every day.
+        <span class="none">Reopen rate itself is untracked — build it first, because it is also
+        the measure of whether fixing this worked.</span></p>
       </div></div>
 
     </div>
@@ -484,6 +503,10 @@
           <li>Ticket → Complaint is legitimately 1:many because of reopens, so the chain is not even uniformly 1:1</li>
           <li><b>Effect:</b> "what is the status of this ticket" has four possible answers</li>
         </ul>
+        <p class="mtr"><b>Tracked as a symptom.</b> Health → <b>Ticket Close Match %</b>
+        (<span class="live">99.3%</span>) and the Raw closure counts exist precisely <i>because</i>
+        the four stores can disagree. That reconciliation work is the cost of this anomaly —
+        collapsing the stores would make the metric unnecessary.</p>
       </div></div>
 
       <div class="anom"><div class="anom-id">A-04</div><div>
@@ -493,6 +516,11 @@
           <li>Neither reads the other's deadline — verified in both directions, zero references</li>
           <li><b>Effect:</b> the two clocks can disagree about whether the same ticket breached</li>
         </ul>
+        <p class="mtr"><b>Half-tracked, and the half we track is the wrong one.</b> Health →
+        <b>TAT Calculation Accuracy</b> (<span class="live">99.8%</span>) checks SRS's own SLA
+        arithmetic against a recomputed expectation. It does <i>not</i> compare SRS's deadline to
+        Ticket Service Java's. <span class="none">Ticket Service Java's breach is never stored at
+        all, so the disagreement cannot be measured from either side.</span></p>
       </div></div>
 
       <div class="anom"><div class="anom-id">A-05</div><div>
@@ -502,6 +530,9 @@
           <li>SRS carries orphaned callback endpoints from an async design that was never wired</li>
         </ul>
         <p class="ev">F-04, F-06</p>
+        <p class="mtr"><span class="none">Not tracked, and not directly measurable.</span> The
+        symptom shows up indirectly — every cross-system match rate on the Health tab exists
+        because no single service owns the answer.</p>
       </div></div>
 
       <div class="anom"><div class="anom-id">A-06</div><div>
@@ -511,6 +542,9 @@
           <li>The one exception, a queue move to Partner triggered by ordinary reshuffling, creates a <b>new</b> complaint instead of updating</li>
         </ul>
         <p class="ev">F-15</p>
+        <p class="mtr"><span class="none">Completely untracked.</span> Nothing compares a ticket's
+        type or priority in Kapture against the complaint's classification in SRS after creation.
+        A ticket re-typed by an agent diverges silently and no dashboard would show it.</p>
       </div></div>
 
       <div class="anom"><div class="anom-id">A-07</div><div>
@@ -522,6 +556,10 @@
           <li><b>Effect:</b> the ticket stays open on the CSP's card with its SRS clock still running, while Kapture shows it closed. He may travel to a job that no longer exists</li>
         </ul>
         <p class="ev">TicketController.ResolveTicket · TicketQueueListener.handleResolveTicket · SrsClient.java</p>
+        <p class="mtr"><b>Tracked today — and it is visible.</b> Raw → Closure directional counts:
+        <span class="gap">Kapture resolved 1,074 vs SRS closed 1,035 on T-1</span> — roughly
+        <b>39 tickets a day</b> resolved in Kapture that SRS never closed. Fixing this closes that
+        gap and removes the false TAT breaches those 39 generate.</p>
       </div></div>
 
       <div class="anom"><div class="anom-id">A-08</div><div>
@@ -533,6 +571,12 @@
           <li><b>Ticket → customer:</b> the app shows no live status, so calling is the only way to find out</li>
           <li><b>Effect:</b> the agent's entire surface is three actions — create a ticket, add a comment, occasionally mark resolve. <b>Two of the three go nowhere:</b> the comment reaches no one, and the resolve never leaves Kapture (A-07)</li>
         </ul>
+        <p class="mtr"><b>Partly tracked.</b> Health → <b>Service Ticket-PN Delivery Rate</b> is the
+        only visibility metric we have, and it sits at <span class="gap">90.8%</span> — Raw shows
+        <b>1,465 tickets created vs 1,330 CSP notifications delivered</b>, so about
+        <b>135 tickets a day</b> where the CSP is never pinged at all. Nothing tracks the agent's
+        or the customer's visibility. <span class="none">Repeat-contact rate does not exist as a
+        metric today.</span></p>
       </div></div>
 
       <div class="anom"><div class="anom-id">A-09</div><div>
@@ -544,6 +588,11 @@
           <li><b>Effect:</b> a disposition Kapture happily accepts can be one SRS has never heard of — rejected outright, or silently redirected, depending on a feature flag</li>
         </ul>
         <p class="ev">KaptureProblemMapper · PRIMARY_CLASS_TO_EXECUTOR</p>
+        <p class="mtr"><b>The failure is tracked, the cause is not.</b> Health → Match Rate
+        <b>by ticket type</b> would drop for any disposition SRS cannot map — that is the alarm.
+        It currently reads <span class="live">99.5–100%</span> across all five internet subtypes,
+        so the two vocabularies are in sync <i>today</i>. <span class="none">Nothing warns you
+        when they drift; you find out from the match rate after the fact.</span></p>
       </div></div>
 
       <div class="anom"><div class="anom-id">A-10</div><div>
@@ -555,6 +604,10 @@
           <li><b>Effect:</b> we run a full CRM as the front door, and almost none of what it captures reaches the people doing the work</li>
         </ul>
         <p class="ev">TicketEntity: <code>ticket_id</code> + <code>kapture_ticket_id</code> · SRS: zero occurrences of priority/queue</p>
+        <p class="mtr"><span class="none">Not tracked.</span> No metric asks what Kapture holds
+        that nothing downstream can use. The <b>Enrichment Rate</b> (<span class="live">98.9%</span>)
+        measures the opposite direction — whether TAS's own fields are filled, not whether
+        Kapture's reach anyone.</p>
       </div></div>
 
       <div class="anom"><div class="anom-id">A-11</div><div>
@@ -565,6 +618,9 @@
           <li><b>Effect:</b> SRS's record of a ticket is thinner than TAS's. Anything asking SRS "who is on this?" gets the CSP, never the technician</li>
         </ul>
         <p class="ev">TAS EsRestore* events · SRS InboundEventController — 4 es-restore endpoints</p>
+        <p class="mtr"><span class="none">Not tracked, and invisible by construction.</span> An
+        event with no receiver produces no row anywhere — there is nothing to count. This only
+        surfaces by reading the code, which is how it was found.</p>
       </div></div>
     </div>
   </section>
@@ -750,8 +806,10 @@
     <div class="rm-block">
       <div class="rm-block-head">
         <div class="hd"><span class="rm-num">04</span><h3>Measurement</h3><span class="otag">gates both</span></div>
-        <p>The objective carries explicit measures. Several cannot be computed today — this has to
-        land early or nothing above can be shown to have worked.</p>
+        <p>The tracker already covers cross-system <i>consistency</i> well — match rates, closure
+        reconciliation, TAT arithmetic, all above 99%. What it does not cover is <b>customer
+        outcome</b>: reopen rate, repeat contacts and time-to-resolution are all absent. That is
+        the gap, and it has to close early or nothing above can be shown to have worked.</p>
       </div>
 
       <div class="rm-row">
